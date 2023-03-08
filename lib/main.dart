@@ -140,32 +140,32 @@ class _MyHomePageState extends State<MyHomePage> {
       return Scaffold(
         appBar: AppBar(
           title: const Text('Noe More'),
-          actions: <Widget>[
-            TextButton(
-              child: Icon(Icons.home),
-              onPressed: () {
-                print('Selected Home Page');
-                print(selectedPageIndex);
-                selectedPageIndex = 0;
-              },
-            ),
-            TextButton(
-              child: Icon(Icons.calendar_month),
-              onPressed: () {
-                print('Selected Tracker Page');
-                print(selectedPageIndex);
-                selectedPageIndex = 1;
-              },
-            ),
-            TextButton(
-              child: Icon(Icons.people),
-              onPressed: () {
-                print('Selected Connection Page');
-                print(selectedPageIndex);
-                selectedPageIndex = 2;
-              },
-            ),
-          ],
+          // actions: <Widget>[
+          //   TextButton(
+          //     child: Icon(Icons.home),
+          //     onPressed: () {
+          //       print('Selected Home Page');
+          //       print(selectedPageIndex);
+          //       selectedPageIndex = 0;
+          //     },
+          //   ),
+          //   TextButton(
+          //     child: Icon(Icons.calendar_month),
+          //     onPressed: () {
+          //       print('Selected Tracker Page');
+          //       print(selectedPageIndex);
+          //       selectedPageIndex = 1;
+          //     },
+          //   ),
+          //   TextButton(
+          //     child: Icon(Icons.people),
+          //     onPressed: () {
+          //       print('Selected Connection Page');
+          //       print(selectedPageIndex);
+          //       selectedPageIndex = 2;
+          //     },
+          //   ),
+          // ],
 
         ),
         body: page,
