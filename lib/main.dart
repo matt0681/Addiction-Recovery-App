@@ -164,7 +164,18 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 
-class TrackerPage extends StatelessWidget {
+class TrackerPage extends StatefulWidget {
+  @override
+  _TrackerPageState createState() => _TrackerPageState();
+}
+
+class _TrackerPageState extends State<TrackerPage> {
+
+  DateTime focusedDay = DateTime.now();
+  DateTime? selectedDay;
+  DateTime? _selectedCalendarDate;
+  DateTime? _focusedCalendarDate;
+
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
@@ -214,35 +225,45 @@ class TrackerPage extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 20,),
+            SizedBox(height: 10,),
 
             Container(
               padding: EdgeInsets.all(2),
-              // color: Colors.white,
+
               child: TableCalendar(
-                focusedDay: DateTime.now(),
+                focusedDay: focusedDay,
                 firstDay: DateTime.utc(2000, 1, 1),
                 lastDay: DateTime.utc(2100, 1, 1),
-                // selectedDayPredicate: (day) {
-                //   return isSameDay(_selectedDay, day);
-                // },
-                // onDaySelected: (selectedDay, focusedDay) {
-                //   setState(() {
-                //     _selectedDay = selectedDay;
-                //     _focusedDay = focusedDay;
-                //   });
-                // },
-                // calendarFormat: _calendarFormat,
-                // onFormatChanged: (format) {
-                //   setState(() {
-                //     _calendarFormat = format;
-                //   });
-                // },
+
+                calendarFormat: CalendarFormat.month,
+                headerVisible: true,
+
+                calendarStyle: CalendarStyle(
+                  weekendTextStyle: TextStyle(color: Colors.white),
+                  selectedDecoration: BoxDecoration(
+                    color: Colors.blue,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+
+                selectedDayPredicate: (selectedDay) {
+                  return (isSameDay(_selectedCalendarDate!, selectedDay));
+                },
+                onDaySelected: (selectedDay, focusedDay) {
+                  if (!isSameDay(_selectedCalendarDate, selectedDay)) {
+                    setState(() {
+                      _selectedCalendarDate = selectedDay;
+                      _focusedCalendarDate = focusedDay;
+                    });
+                  }
+                },
+
+
+
               ),
+
               // Text('Placeholder for calendar!', style: TextStyle(color: Colors.black, fontSize: 16)),
             ),
-
-            SizedBox(height: 20,),
           ],
         ),
       ),
