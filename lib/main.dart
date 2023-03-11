@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 // This runs the MyApp Widget.
 void main() {
@@ -62,7 +63,7 @@ class _InitialPageState extends State<InitialPage> {
     // 4 second timer for the loading screen to show our motto/name.
     // Set to zero for testing the rest of the app.
     timer = Timer(
-      const Duration(seconds: 0),
+      const Duration(seconds: 4),
       () {
         Navigator.pushReplacement(
           context,
@@ -175,42 +176,70 @@ class TrackerPage extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         child: Column(
           children: <Widget>[
-            SizedBox(height: 20,),
+            SizedBox(height: 5,),
 
             Container(
               padding: EdgeInsets.all(20),
-              color: Colors.white,
+              color: Colors.black,
               child: Column(
                 children: [
                   Text(
-                    'Oh, turn a deaf ear to the treacherous voice',
-                    style: TextStyle(color: Colors.black, fontSize: 16),
+                    'Be watchful; taken by surprise',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                   Text(
-                    'Which bids thee in what is illicit rejoice.',
-                    style: TextStyle(color: Colors.black, fontSize: 16),
+                    'How many fall, no more to rise!',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                  Text(
+                    "The storm that wakes the passion's glow",
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                  Text(
+                    'Shall lay the tender lily low.',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                 ],
               ),
             ),
 
-            SizedBox(height: 20,),
+            SizedBox(height: 10,),
 
             Container(
-              padding: EdgeInsets.all(20),
-              color: Colors.white,
+              padding: EdgeInsets.all(10),
+              color: Colors.black,
               child: Text(
                 '${appState.timeSober} Days Sober',
-                style: TextStyle(color: Colors.black, fontSize: 20),
+                style: TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),
 
             SizedBox(height: 20,),
 
             Container(
-              padding: EdgeInsets.all(20),
-              color: Colors.white,
-              child: Text('Placeholder for calendar!', style: TextStyle(color: Colors.black, fontSize: 16)),
+              padding: EdgeInsets.all(2),
+              // color: Colors.white,
+              child: TableCalendar(
+                focusedDay: DateTime.now(),
+                firstDay: DateTime.utc(2000, 1, 1),
+                lastDay: DateTime.utc(2100, 1, 1),
+                // selectedDayPredicate: (day) {
+                //   return isSameDay(_selectedDay, day);
+                // },
+                // onDaySelected: (selectedDay, focusedDay) {
+                //   setState(() {
+                //     _selectedDay = selectedDay;
+                //     _focusedDay = focusedDay;
+                //   });
+                // },
+                // calendarFormat: _calendarFormat,
+                // onFormatChanged: (format) {
+                //   setState(() {
+                //     _calendarFormat = format;
+                //   });
+                // },
+              ),
+              // Text('Placeholder for calendar!', style: TextStyle(color: Colors.black, fontSize: 16)),
             ),
 
             SizedBox(height: 20,),
