@@ -2,10 +2,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// This runs the MyApp Widget.
 void main() {
   runApp(MyApp());
 }
 
+// The MyApp Widget creates a basic app theme and then loads the
+// InitialPage Widget as the first page the user sees.
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -17,7 +20,8 @@ class MyApp extends StatelessWidget {
         title: 'Noe More App',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
+          textTheme: Typography.whiteCupertino,
         ),
         home: InitialPage(),
       ),
@@ -25,11 +29,11 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 class MyAppState extends ChangeNotifier {
   // store app wide variables and things here.
   // for more widget specific variables/ changes, use a stateful widget.
   var failedDates = <DateTime>[];
+  var timeSober = 0;
 
   void toggleFailedDate(DateTime dateTime) {
     if (failedDates.contains(dateTime)) {
@@ -58,7 +62,7 @@ class _InitialPageState extends State<InitialPage> {
     // 4 second timer for the loading screen to show our motto/name.
     // Set to zero for testing the rest of the app.
     timer = Timer(
-      const Duration(seconds: 4),
+      const Duration(seconds: 0),
       () {
         Navigator.pushReplacement(
           context,
@@ -115,60 +119,46 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var selectedPageIndex = 0;
-
   @override
   Widget build(BuildContext context) {
-    Widget page;
-    switch (selectedPageIndex) {
-      case 0: // The main home page. Not sure what this will be yet.
-        page = Placeholder();
-        break;
-      case 1: // This will be the calendar tracker page.
-        page = TrackerPage();
-        break;
-      case 2: // This will be the Map page.
-        page = Placeholder();
-        break;
-      default:
-        throw UnimplementedError('no widget for $selectedPageIndex');
-    }
-
-    return LayoutBuilder(builder: (context, constraints) {
-      return Scaffold(
-        appBar: AppBar(
-          title: const Text('Noe More'),
-          // actions: <Widget>[
-          //   TextButton(
-          //     child: Icon(Icons.home),
-          //     onPressed: () {
-          //       print('Selected Home Page');
-          //       print(selectedPageIndex);
-          //       selectedPageIndex = 0;
-          //     },
-          //   ),
-          //   TextButton(
-          //     child: Icon(Icons.calendar_month),
-          //     onPressed: () {
-          //       print('Selected Tracker Page');
-          //       print(selectedPageIndex);
-          //       selectedPageIndex = 1;
-          //     },
-          //   ),
-          //   TextButton(
-          //     child: Icon(Icons.people),
-          //     onPressed: () {
-          //       print('Selected Connection Page');
-          //       print(selectedPageIndex);
-          //       selectedPageIndex = 2;
-          //     },
-          //   ),
-          // ],
-
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text('Noe More', style: TextStyle(color: Colors.white),
         ),
-        body: page,
-      );
-    });
+        backgroundColor: Colors.black,
+      ),
+      drawer: Drawer(
+        child: ListView(
+          // Important: Remove any padding from listview.
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.grey,
+              ),
+              child: Text('Drawer Header'),
+            ),
+            ListTile(
+              leading: Icon(Icons.home,),
+              title: Text('Page 1'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            )
+          ],
+        ),
+      ),
+      body: TrackerPage(),
+      // body: Center(
+      //   child: Column(
+      //     children: <Widget>[
+      //       SizedBox(height: 50,),
+      //       Text('Testing'),
+      //     ],
+      //   ),
+      // )
+    );
   }
 }
 
@@ -182,27 +172,48 @@ class TrackerPage extends StatelessWidget {
       body: Container(
         color: Colors.black,
         height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
         child: Column(
           children: <Widget>[
-            Text('TRACKER PAGE'),
+            SizedBox(height: 20,),
 
-            // SizedBox(height: MediaQuery.of(context).size.height / 2.6,),
-            //
-            // Column(
-            //   children: <Widget>[
-            //     Text('You are worth it.', style: TextStyle(color: Colors.white, fontSize: 30.0)),
-            //     Text('You are loved.', style: TextStyle(color: Colors.white, fontSize: 30.0)),
-            //   ],
-            // ),
-            //
-            // Expanded(
-            //   child: Align(
-            //     alignment: Alignment.bottomCenter,
-            //     child: Text('The Burkett & Lad Group', style: TextStyle(color: Colors.white70, fontSize: 14.0)),
-            //   ),
-            // ),
-            //
-            // SizedBox(height: 1.0,),
+            Container(
+              padding: EdgeInsets.all(20),
+              color: Colors.white,
+              child: Column(
+                children: [
+                  Text(
+                    'Oh, turn a deaf ear to the treacherous voice',
+                    style: TextStyle(color: Colors.black, fontSize: 16),
+                  ),
+                  Text(
+                    'Which bids thee in what is illicit rejoice.',
+                    style: TextStyle(color: Colors.black, fontSize: 16),
+                  ),
+                ],
+              ),
+            ),
+
+            SizedBox(height: 20,),
+
+            Container(
+              padding: EdgeInsets.all(20),
+              color: Colors.white,
+              child: Text(
+                '${appState.timeSober} Days Sober',
+                style: TextStyle(color: Colors.black, fontSize: 20),
+              ),
+            ),
+
+            SizedBox(height: 20,),
+
+            Container(
+              padding: EdgeInsets.all(20),
+              color: Colors.white,
+              child: Text('Placeholder for calendar!', style: TextStyle(color: Colors.black, fontSize: 16)),
+            ),
+
+            SizedBox(height: 20,),
           ],
         ),
       ),
