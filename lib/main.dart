@@ -246,24 +246,21 @@ class _TrackerPageState extends State<TrackerPage> {
                   ),
                 ),
 
-                selectedDayPredicate: (selectedDay) {
-                  return (isSameDay(_selectedCalendarDate!, selectedDay));
-                },
-                onDaySelected: (selectedDay, focusedDay) {
-                  if (!isSameDay(_selectedCalendarDate, selectedDay)) {
-                    setState(() {
-                      _selectedCalendarDate = selectedDay;
-                      _focusedCalendarDate = focusedDay;
-                    });
-                  }
-                },
-
-
-
+                // selectedDayPredicate: (selectedDay) {
+                //   return (isSameDay(_selectedCalendarDate!, selectedDay));
+                // },
+                // onDaySelected: (selectedDay, focusedDay) {
+                //   if (!isSameDay(_selectedCalendarDate, selectedDay)) {
+                //     setState(() {
+                //       _selectedCalendarDate = selectedDay;
+                //       _focusedCalendarDate = focusedDay;
+                //     });
+                //   }
+                // },
               ),
-
-              // Text('Placeholder for calendar!', style: TextStyle(color: Colors.black, fontSize: 16)),
             ),
+
+
           ],
         ),
       ),
