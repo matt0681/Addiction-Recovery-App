@@ -1,27 +1,30 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:noe_more/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 
-/// This runs the MyApp Widget.
-void main() {
+// Deprecated main function.
+// /// This runs the MyApp Widget.
+// void main() {
+//   runApp(MyApp());
+// }
+
+/// This runs the MyApp Widget. It will load the entire app before letting the
+/// user interact with it. (the 'loading'/splash screen will display to them)
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  FlutterNativeSplash.removeAfter(initialization);
+
   runApp(MyApp());
 }
 
-// If you want the entire app to initialize before the loading screen goes away:
-// Change main to
-//    Future main() async {
-//      WidgetsFlutterBinding.ensureInitialized();
-//
-//      FlutterNativeSplash.removeAfter(initialization);
-//
-//      runApp(MyApp());
-//    }
-// Future initialization(BuildContext? context) async {
-//   await Future.delayed(Duration(seconds: 3));
-// }
+Future initialization(BuildContext? context) async {
+  await Future.delayed(Duration(seconds: 3));
+}
 
 /// The MyApp Widget creates a basic app theme and then loads the
 /// InitialPage Widget as the first page the user sees.
