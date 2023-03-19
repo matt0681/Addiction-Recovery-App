@@ -10,6 +10,19 @@ void main() {
   runApp(MyApp());
 }
 
+// If you want the entire app to initialize before the loading screen goes away:
+// Change main to
+//    Future main() async {
+//      WidgetsFlutterBinding.ensureInitialized();
+//
+//      FlutterNativeSplash.removeAfter(initialization);
+//
+//      runApp(MyApp());
+//    }
+// Future initialization(BuildContext? context) async {
+//   await Future.delayed(Duration(seconds: 3));
+// }
+
 /// The MyApp Widget creates a basic app theme and then loads the
 /// InitialPage Widget as the first page the user sees.
 class MyApp extends StatelessWidget {
