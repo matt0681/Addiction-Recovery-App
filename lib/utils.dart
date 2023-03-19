@@ -62,13 +62,13 @@ import 'package:table_calendar/table_calendar.dart';
 // }
 
 
-
+ 
 final kToday = DateTime.now();
 // 3 months ago today.
 final kFirstDay = DateTime(kToday.year, kToday.month, kToday.day - 6);
 // 3 months in the future today.
 final kLastDay = DateTime(kToday.year, kToday.month, kToday.day);
-  
+
 const int SUCCESS = 1;
 const int FAILURE = 0;
 const int NEUTRAL = 2;
