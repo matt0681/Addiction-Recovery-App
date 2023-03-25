@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
           textTheme: Typography.whiteCupertino,
         ),
         home: MyHomePage(),
+        // home: InitialPage(),
       ),
     );
   }
@@ -63,8 +64,8 @@ class MyAppState extends ChangeNotifier {
   //   notifyListeners();
   // }
 }
-
-
+//
+//
 // /// The initial 'loading screen' of the app.
 // /// Consists of our motto along with our name.
 // class InitialPage extends StatefulWidget {
@@ -131,4 +132,4 @@ class MyAppState extends ChangeNotifier {
 //     );
 //   }
 // }
-
+//
