@@ -16,7 +16,7 @@ class _TrackerPageState extends State<TrackerPage> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
-  late final ValueNotifier<List<Event>> _selectedEvents;
+  late final ValueNotifier<List<TrackerEvent>> _selectedEvents;
   RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.toggledOff;
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
@@ -35,8 +35,8 @@ class _TrackerPageState extends State<TrackerPage> {
     super.dispose();
   }
 
-  List<Event> _getEventsForDay(DateTime day) {
-    var events = kEvents[day];
+  List<TrackerEvent> _getEventsForDay(DateTime day) {
+    var events = tracker_events_list[day];
 
     if (events == null) {
       return [];
@@ -47,7 +47,7 @@ class _TrackerPageState extends State<TrackerPage> {
     // return kEvents[day] ?? [];
   }
 
-  List<Event> _getEventsForRange(DateTime start, DateTime end) {
+  List<TrackerEvent> _getEventsForRange(DateTime start, DateTime end) {
     final days = daysInRange(start, end);
 
     return [
@@ -88,11 +88,11 @@ class _TrackerPageState extends State<TrackerPage> {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     //var appState = context.watch<MyAppState>();
+    print(tracker_events_list.toString());
+    print("hello?");
 
     return Scaffold(
       body: Container(
@@ -145,10 +145,10 @@ class _TrackerPageState extends State<TrackerPage> {
             Container(
               padding: EdgeInsets.all(2),
 
-              child: TableCalendar<Event>(
+              child: TableCalendar<TrackerEvent>(
                 focusedDay: _focusedDay,
-                firstDay: utilsFirstDay,
-                lastDay: utilsLastDay,
+                firstDay: tracker_first_day,
+                lastDay: tracker_last_day,
 
                 locale: "en_US",
                 headerStyle: HeaderStyle(
@@ -185,7 +185,7 @@ class _TrackerPageState extends State<TrackerPage> {
             const SizedBox(height: 8.0),
 
             Expanded(
-              child: ValueListenableBuilder<List<Event>>(
+              child: ValueListenableBuilder<List<TrackerEvent>>(
                 valueListenable: _selectedEvents,
                 builder: (context, value, _) {
                   return ListView.builder(
