@@ -2,51 +2,49 @@ import 'dart:collection';
 import 'package:table_calendar/table_calendar.dart';
 
 
-final kToday = DateTime.now();
-// 3 months ago today.
-final kFirstDay = DateTime(kToday.year, kToday.month, kToday.day - 6);
-// 3 months in the future today.
-final kLastDay = DateTime(kToday.year, kToday.month, kToday.day);
+/// Time variables.
+final utilsToday = DateTime.now();    // Today's date time.
+final utilsFirstDay = DateTime.utc(2000, 1, 1);   // January 1, 2000
+final utilsLastDay = DateTime.utc(2100, 1, 1);  // January 1, 2100
 
-const int SUCCESS = 1;
-const int FAILURE = 0;
-const int NEUTRAL = 2;
+/// Values to represent different event states.
+const int SUCCESS_STATUS = 1;
+const int FAILURE_STATUS = 0;
+const int NEUTRAL_STATUS = 2;
 
-// Class for defining what a sobriety counter 'event' should be.
+
+/// Class for defining what a sobriety counter 'event' should be.
 class Event {
-
-  // Statuses can be:
-  final int status;
+  final int status;   // See Statuses aove for different options.
 
   const Event(this.status);
 
-  @override
   int getStatus() {
     return status;
   }
 }
 
 
-// A LinkedHashMap of events where each DateTime is mapped to an Event.
-// The map uses 'isSameDay' to compare any new DateTime entries to those already in the map.
-// the 'isSameDay' function ignores time, making all the DateTime keys totally date based.
+/// A LinkedHashMap of events where each DateTime is mapped to an Event.
+/// The map uses 'isSameDay' to compare any new DateTime entries to those already in the map.
+/// the 'isSameDay' function ignores time, making all the DateTime keys totally date based.
 final kEvents = LinkedHashMap<DateTime, Event>(
   equals: isSameDay,
   hashCode: getHashCode,
 )..addAll(_kEventSource);
 
 
-// Creates a Map filled with a ton of DateTimes and Events.
+/// Creates a Map filled with a ton of DateTimes and Events.
 final _kEventSource = Map.fromIterable(
     List.generate(5, (index) => index),
-    key: (item) => DateTime.utc(kFirstDay.year, kFirstDay.month, item),
-    value: (item) => Event(FAILURE))
+    key: (item) => DateTime.utc(utilsFirstDay.year, utilsFirstDay.month, item),
+    value: (item) => Event(FAILURE_STATUS))
   ..addAll({
-    kToday: Event(SUCCESS),
+    utilsToday: Event(SUCCESS_STATUS),
   });
 
 
-// Returns a number calculated from a DateTime.
+/// Returns a number calculated from a DateTime.
 int getHashCode(DateTime key) {
   return key.day * 1000000 + key.month * 10000 + key.year;
 }
@@ -60,3 +58,4 @@ List<DateTime> daysInRange(DateTime first, DateTime last) {
         (index) => DateTime.utc(first.year, first.month, first.day + index),
   );
 }
+

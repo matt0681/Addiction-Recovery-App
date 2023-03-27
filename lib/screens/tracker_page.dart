@@ -146,9 +146,16 @@ class _TrackerPageState extends State<TrackerPage> {
               padding: EdgeInsets.all(2),
 
               child: TableCalendar<Event>(
-                firstDay: kFirstDay,
-                lastDay: kLastDay,
                 focusedDay: _focusedDay,
+                firstDay: utilsFirstDay,
+                lastDay: utilsLastDay,
+
+                locale: "en_US",
+                headerStyle: HeaderStyle(
+                    formatButtonVisible: false, titleCentered: true),
+
+
+
                 selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
                 rangeStartDay: _rangeStart,
                 rangeEndDay: _rangeEnd,
