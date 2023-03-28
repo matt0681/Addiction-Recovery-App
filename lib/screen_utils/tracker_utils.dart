@@ -8,9 +8,9 @@ final tracker_first_day = DateTime.utc(2000, 1, 1);   // January 1, 2000
 final tracker_last_day = DateTime.utc(2100, 1, 1);  // January 1, 2100
 
 /// Values to represent different event states.
-const int SUCCESS_STATUS = 1;
-const int FAILURE_STATUS = 0;
-const int NEUTRAL_STATUS = 2;
+const int STATUS_SUCCESS = 1;
+const int STATUS_FAILURE = 0;
+const int STATUS_NEUTRAL = 2;
 
 
 /// Class for defining what a sobriety counter 'event' should be.
@@ -22,6 +22,24 @@ class TrackerEvent {
   int getStatus() {
     return status;
   }
+
+  @override
+  String toString() {
+    switch(this.status) {
+      case STATUS_SUCCESS:
+        return "Success";
+        break;
+      case STATUS_FAILURE:
+        return "Failure";
+        break;
+      case STATUS_NEUTRAL:
+        return "Neutral";
+        break;
+      default:
+        return "Error: Invalid Tracker Event Status";
+        break;
+    }
+  }
 }
 
 
@@ -31,17 +49,20 @@ class TrackerEvent {
 final tracker_events_list = LinkedHashMap<DateTime, TrackerEvent>(
   equals: isSameDay,
   hashCode: getHashCode,
-)..addAll(tracker_event_generator);
+)..addAll(sample_events_map);
 
+final dates = <DateTime>[
+  DateTime.utc(tracker_today.year, tracker_today.month, tracker_today.day),
+  DateTime.utc(tracker_today.year, tracker_today.month, tracker_today.day-1),
+  DateTime.utc(tracker_today.year, tracker_today.month, tracker_today.day-2),
+  DateTime.utc(tracker_today.year, tracker_today.month, tracker_today.day-3),
+];
 
-/// Creates a Map filled with a ton of DateTimes and Events.
-final tracker_event_generator = Map.fromIterable(
-    List.generate(2, (index) => index),
-    key: (item) => DateTime.utc(tracker_first_day.year, tracker_first_day.month, item),
-    value: (item) => TrackerEvent(FAILURE_STATUS))
-  ..addAll({
-    tracker_today: TrackerEvent(SUCCESS_STATUS),
-  });
+final sample_events_map = Map<DateTime, TrackerEvent>.fromIterable(
+  dates,
+  key: (item) => item,
+  value: (item) => TrackerEvent(STATUS_FAILURE)
+);
 
 
 /// Returns a number calculated from a DateTime.
