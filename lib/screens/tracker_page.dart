@@ -101,8 +101,6 @@ class _TrackerPageState extends State<TrackerPage> {
         width: MediaQuery.of(context).size.width,
         child: Column(
           children: <Widget>[
-            SizedBox(height: 3,),
-
             Container(
               padding: EdgeInsets.all(20),
               color: Colors.black,
@@ -128,7 +126,6 @@ class _TrackerPageState extends State<TrackerPage> {
               ),
             ),
 
-            SizedBox(height: 5,),
 
             Container(
               padding: EdgeInsets.all(10),
@@ -140,7 +137,6 @@ class _TrackerPageState extends State<TrackerPage> {
               ),
             ),
 
-            SizedBox(height: 5,),
 
             Container(
               padding: EdgeInsets.all(2),
@@ -150,13 +146,18 @@ class _TrackerPageState extends State<TrackerPage> {
                 firstDay: tracker_first_day,
                 lastDay: tracker_last_day,
 
-                locale: "en_US",
+                locale: "en_US",  // USA Language calendar.
                 headerStyle: HeaderStyle(
-                    formatButtonVisible: false, titleCentered: true),
+                    formatButtonVisible: false,
+                    titleCentered: true),
+                availableGestures: AvailableGestures.all, // Allows finger gestures to navigate calendar.
 
-
-
+                onDaySelected: _onDaySelected,  // Updates the selected day and selected day events variables.
                 selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+
+
+
+
                 rangeStartDay: _rangeStart,
                 rangeEndDay: _rangeEnd,
                 calendarFormat: _calendarFormat,
@@ -167,7 +168,7 @@ class _TrackerPageState extends State<TrackerPage> {
                   // Use 'CalendarStyle' to customize the UI.
                   outsideDaysVisible: false,
                 ),
-                onDaySelected: _onDaySelected,
+
                 onRangeSelected: _onRangeSelected,
                 onFormatChanged: (format) {
                   if (_calendarFormat != format) {
@@ -182,32 +183,23 @@ class _TrackerPageState extends State<TrackerPage> {
               ),
             ),
 
-            const SizedBox(height: 8.0),
 
-            Expanded(
-              child: ValueListenableBuilder<List<TrackerEvent>>(
-                valueListenable: _selectedEvents,
-                builder: (context, value, _) {
-                  return ListView.builder(
-                    itemCount: value.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 12.0,
-                          vertical: 4.0,
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(),
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
-                        child: ListTile(
-                          onTap: () => print('${value[index]}'),
-                          title: Text('${value[index]}'),
-                        ),
-                      );
-                    },
-                  );
-                },
+            Container(
+              padding: EdgeInsets.all(3.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text((() {
+                      if(_selectedEvents.value.isEmpty == true) {
+                        return "" + _selectedDay.toString().split(" ")[0] + "  No Status";
+                      } else {
+                        return "" + _selectedDay.toString().split(" ")[0] + "  " + _selectedEvents.value.first.toString();
+                      }
+                    } ())),
+                    // child: Text("" + _selectedDay.toString().split(" ")[0] + "  " + _selectedEvents.value.first.toString()),
+                  ),
+                  Text("Edit"),
+                ],
               ),
             ),
           ],
