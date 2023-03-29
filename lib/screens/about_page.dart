@@ -10,4 +10,4 @@ class AboutPage extends StatelessWidget {
       body: Text("Hello There! ABOUT PAGE"),
     );
   }
-}  
+}
