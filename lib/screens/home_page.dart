@@ -12,12 +12,16 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Noe More', style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.black,
       ),
+
+
       drawer: Drawer(
         child: ListView(
           // Important: Remove any padding from listview.
@@ -29,6 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               child: Text('Drawer Header'),
             ),
+
             ListTile(
               leading: Icon(Icons.home,),
               title: Text('Page 1'),
@@ -39,6 +44,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+
+
       body: TrackerPage(),
       // body: Center(
       //   child: Column(
