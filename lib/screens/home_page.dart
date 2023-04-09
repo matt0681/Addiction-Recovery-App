@@ -59,7 +59,23 @@ class _MyHomePageState extends State<MyHomePage> {
 
             ListTile(
               leading: Icon(Icons.home, color: Colors.white),
-              title: Text('Page 1'),
+              title: Text('Tracker Home'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+
+            ListTile(
+              leading: Icon(Icons.file_copy, color: Colors.white),
+              title: Text('Resources'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+
+            ListTile(
+              leading: Icon(Icons.settings, color: Colors.white),
+              title: Text('Settings'),
               onTap: () {
                 Navigator.pop(context);
               },
