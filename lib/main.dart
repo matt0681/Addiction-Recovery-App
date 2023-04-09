@@ -40,6 +40,12 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
           textTheme: Typography.whiteCupertino,
+          // drawerTheme: DrawerThemeData(
+          //   backgroundColor: Colors.black87,
+          // ),
+          // appBarTheme: AppBarTheme(
+          //   backgroundColor: Colors.blue,
+          // ),
         ),
         home: MyHomePage(),
         // home: InitialPage(),

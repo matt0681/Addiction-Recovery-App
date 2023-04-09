@@ -11,7 +11,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-
     // This widget variable holds information for the about page popup.
     final List<Widget> aboutBoxChildren = <Widget>[
       const SizedBox(height: 24),
@@ -40,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
       drawer: Drawer(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.grey,
         child: ListView(
           // Important: Remove any padding from listview.
           padding: EdgeInsets.zero,
