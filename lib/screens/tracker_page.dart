@@ -92,18 +92,17 @@ class _TrackerPageState extends State<TrackerPage> {
   Widget build(BuildContext context) {
     //var appState = context.watch<MyAppState>();
     print(tracker_events_list.toString());
-    print("hello?");
 
     return Scaffold(
       body: Container(
-        color: Colors.black,
+        color: Colors.blueGrey,
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Column(
           children: <Widget>[
             Container(
               padding: EdgeInsets.all(20),
-              color: Colors.black,
+              color: Colors.blueGrey,
               child: Column(
                 children: [
                   Text(
@@ -129,7 +128,7 @@ class _TrackerPageState extends State<TrackerPage> {
 
             Container(
               padding: EdgeInsets.all(10),
-              color: Colors.black,
+              color: Colors.deepPurpleAccent,
               child: Text(
                 '0 Days Sober',
                 // '${appState.timeSober} Days Sober',

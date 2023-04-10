@@ -1,4 +1,8 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:noe_more/screens/resources_page.dart';
+import 'package:noe_more/screens/settings_page.dart';
 import 'package:noe_more/screens/tracker_page.dart';
 
 
@@ -9,6 +13,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int currentPageIndex = 0;
+  final pages = [
+    TrackerPage(),
+    ResourcesPage(),
+    SettingsPage(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     // This widget variable holds information for the about page popup.
@@ -27,28 +38,24 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     ];
 
-
     return Scaffold(
 
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Noe More', style: TextStyle(color: Colors.white),
+        title: const Text('Noe More', style: TextStyle(color: Colors.purple),
         ),
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.blueGrey,
       ),
 
 
       drawer: Drawer(
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.blueGrey,
         child: ListView(
           // Important: Remove any padding from listview.
           padding: EdgeInsets.zero,
           children: <Widget>[
 
             DrawerHeader(
-              // decoration: BoxDecoration(
-              //   color: Colors.black87,
-              // ),
               child: Column(
                 children: [
                   Text('Noe More', style: TextStyle(color: Colors.white, fontSize: 20)),
@@ -62,6 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text('Tracker Home'),
               onTap: () {
                 Navigator.pop(context);
+                setState(() { currentPageIndex = 0; });
               },
             ),
 
@@ -70,6 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text('Resources'),
               onTap: () {
                 Navigator.pop(context);
+                setState(() { currentPageIndex = 1; });
               },
             ),
 
@@ -78,6 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text('Settings'),
               onTap: () {
                 Navigator.pop(context);
+                setState(() { currentPageIndex = 2; });
               },
             ),
 
@@ -93,16 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
 
-
-      body: TrackerPage(),
-      // body: Center(
-      //   child: Column(
-      //     children: <Widget>[
-      //       SizedBox(height: 50,),
-      //       Text('Testing'),
-      //     ],
-      //   ),
-      // )
+      body: pages[currentPageIndex],
     );
   }
 }
