@@ -6,8 +6,38 @@ class ResourcesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Resources page!");
+
     return Scaffold(
-      body: Text("Hello There! RESOURCES PAGE"),
+      body: Container(
+        child: Column(
+          children: [
+            Container(
+              child: Text(
+                "Hello There! RESOURCES PAGE",
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+
+            Container(
+              child: Text(
+                "Hello There! RESOURCES PAGE",
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+
+            Container(
+              child: Text(
+                "Hello There! RESOURCES PAGE",
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.black),
+              ),
+            )
+          ],
+        ),
+      )
     );
   }
 }
