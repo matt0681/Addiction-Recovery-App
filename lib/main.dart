@@ -44,10 +44,10 @@ class MyApp extends StatelessWidget {
 /// page is currently selected.
 class HomePage extends StatefulWidget {
   @override
-  State<MyHomePage> createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
 
   int _selectedIndex = 0;
 
@@ -72,15 +72,15 @@ class _HomePageState extends State<MyHomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.event),
+            icon: Icon(Icons.event_outlined),
             label: 'Tracker',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.local_library),
+            icon: Icon(Icons.local_library_outlined),
             label: 'Resources',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
+            icon: Icon(Icons.settings_outlined),
             label: 'Settings',
           ),
         ],

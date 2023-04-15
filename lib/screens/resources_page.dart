@@ -9,35 +9,17 @@ class ResourcesPage extends StatelessWidget {
     print("Resources page!");
 
     return Scaffold(
-      body: Container(
-        child: Column(
-          children: [
-            Container(
-              child: Text(
-                "Hello There! RESOURCES PAGE",
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black),
-              ),
+      body: ListView(
+        children: const <Widget>[
+          Card(
+            child: ListTile(
+              leading: FlutterLogo(),
+              trailing: Text('Classic AA Book'),
+              dense: true,
             ),
-
-            Container(
-              child: Text(
-                "Hello There! RESOURCES PAGE",
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-
-            Container(
-              child: Text(
-                "Hello There! RESOURCES PAGE",
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black),
-              ),
-            )
-          ],
-        ),
-      )
+          ),
+        ],
+      ),
     );
   }
 }
