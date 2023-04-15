@@ -14,7 +14,7 @@ class ResourcesPage extends StatelessWidget {
       itemBuilder: (context, index) {
         return Card(
           color: Color(0xFF055680),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
           margin: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0.0),
 
           child: ListTile(
@@ -41,6 +41,14 @@ class ResourcesPage extends StatelessWidget {
           'Resources',
           style: TextStyle(color: Colors.white),
         ),
+
+        actions: [
+          IconButton(
+              onPressed: () {
+
+              },
+              icon: Icon(Icons.search_outlined))
+        ],
 
         backgroundColor: Color(0xFF06294A),
         elevation: 0.0,

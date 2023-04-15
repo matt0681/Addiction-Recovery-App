@@ -26,7 +26,7 @@ class SettingsPage extends StatelessWidget {
 
           Card(
             color: Color(0xFF055680),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
             margin: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0.0),
 
             child: ListTile(
