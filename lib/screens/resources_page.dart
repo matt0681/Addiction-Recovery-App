@@ -36,6 +36,16 @@ class ResourcesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
 
+      appBar: AppBar(
+        title: const Text(
+          'Resources',
+          style: TextStyle(color: Colors.white),
+        ),
+
+        backgroundColor: Color(0xFF06294A),
+        elevation: 0.0,
+      ),
+
       backgroundColor: Color(0xFF06294A),
 
       body: _defaultListView(),
