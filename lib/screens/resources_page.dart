@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 
 
-class ResourcesPage extends StatelessWidget {
+class ResourcesPage extends StatefulWidget {
+  @override
+  State<ResourcesPage> createState() => _ResourcesPageState();
+}
+
+
+class _ResourcesPageState extends State<ResourcesPage> {
 
   final List<List<String>> _resourceList = [
     ["Classic AA Book", "Used by all North American AA groups."],
     ["North American AA Official Website", "Has helped Alcoholics recover since 1995."]
   ];
+
+  bool _searchBoolean= false;
 
   Widget _defaultListView() {
     return ListView.builder(
@@ -32,22 +40,45 @@ class ResourcesPage extends StatelessWidget {
     );
   }
 
+  Widget _searchTextField() {
+    return TextField(
+      style: TextStyle(color: Color(0xFF2A5298)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
 
       appBar: AppBar(
-        title: const Text(
-          'Resources',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: ! _searchBoolean
+          ?
+            const Text(
+              'Resources',
+              style: TextStyle(color: Colors.white),
+            )
+          :
+            _searchTextField(),
 
-        actions: [
+        actions: !_searchBoolean
+          ? [
+            IconButton(
+            icon: Icon(Icons.search_outlined),
+            onPressed: () {
+              setState(() {
+                _searchBoolean = true;
+              });
+            })
+        ]
+        : [
           IconButton(
-              onPressed: () {
-
-              },
-              icon: Icon(Icons.search_outlined))
+            icon: Icon(Icons.clear_outlined),
+            onPressed: () {
+              setState(() {
+                _searchBoolean = false;
+              });
+            }
+          )
         ],
 
         backgroundColor: Color(0xFF06294A),
