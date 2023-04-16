@@ -12,7 +12,15 @@ class TrackerPage extends StatefulWidget {
 
 /// Tracker Page State class.
 class _TrackerPageState extends State<TrackerPage> {
+
   TextStyle quoteStyle = TextStyle(color: Color(0xFF899BC0), fontSize: 16); // 0xFF7D91BA
+
+  final List<String> _quoteList = [
+    "",
+    "",
+    "",
+  ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +43,7 @@ class _TrackerPageState extends State<TrackerPage> {
         width: MediaQuery.of(context).size.width,
         child: Column(
           children: <Widget>[
+
             Container(
               padding: EdgeInsets.fromLTRB(0.0, 2.0, 0.0, 20.0),
               color: Color(0xFF06294A),
@@ -60,25 +69,23 @@ class _TrackerPageState extends State<TrackerPage> {
               ),
             ),
 
-            Card(
-              color: Color(0xFF055680),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
-              margin: EdgeInsets.fromLTRB(110.0, 8.0, 110.0, 0.0),
 
-              child: ListTile(
-                leading: Text(
-                  "0",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30.0
-                  )
+            Container(
+              padding: EdgeInsets.all(10),
+              decoration: ShapeDecoration(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15.0))
                 ),
-                title: Text(
-                  "Days Sober",
-                  style: TextStyle(color: Colors.white)
-                ),
+                color: Color(0xFF055680),
+              ),
+              child: Text(
+                '0 Days Sober',
+                style: TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),
+
+
+
 
           ],
         ),

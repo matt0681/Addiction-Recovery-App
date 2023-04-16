@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:noe_more/screens/home_page.dart';
 import 'package:noe_more/screens/resources_page.dart';
 import 'package:noe_more/screens/settings_page.dart';
 import 'package:noe_more/screens/tracker_page.dart';

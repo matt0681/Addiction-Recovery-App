@@ -9,9 +9,12 @@ class ResourcesPage extends StatefulWidget {
 
 class _ResourcesPageState extends State<ResourcesPage> {
 
+  // [Title, SubTitle, Affiliate(0=false,1=true), Link, Image?]
   final List<List<String>> _resourceList = [
-    ["Classic AA Book", "Used by all North American AA groups."],
-    ["North American AA Official Website", "Has helped Alcoholics recover since 1995."]
+    ["Classic AA Book", "Used by all North American AA groups.", "0", "www.google.com", "Book"],
+    ["North American AA Official Website", "Has helped Alcoholics recover since 1995.", "0", "www.google.com", "Website"],
+    ["Classic AA Book", "Used by all North American AA groups.", "1", "www.google.com", "Book"],
+    ["North American AA Official Website", "Has helped Alcoholics recover since 1995.", "1", "www.google.com", "Website"],
   ];
 
   bool _searchBoolean= false;
