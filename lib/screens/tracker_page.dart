@@ -16,9 +16,9 @@ class _TrackerPageState extends State<TrackerPage> {
   TextStyle quoteStyle = TextStyle(color: Color(0xFF899BC0), fontSize: 16); // 0xFF7D91BA
 
   final List<String> _quoteList = [
-    "",
-    "",
-    "",
+    "Be watchful; taken by surprise\nHow many fall, no more to rise!\nThe storm that wakes the passion's glow\nShall lay the tender lily low.",
+    "Quote #2",
+    "Quote #3",
   ];
 
 
