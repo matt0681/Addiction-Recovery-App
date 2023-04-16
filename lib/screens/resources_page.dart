@@ -90,7 +90,7 @@ class _ResourcesPageState extends State<ResourcesPage> {
         setState(() {
           _searchIndexList = [];
           for(int i = 0; i < _resourceList.length; i++) {
-            if(_resourceList[i][0].contains(s)) {
+            if((_resourceList[i][0].toLowerCase()).contains(s.toLowerCase())) {
               _searchIndexList.add(i);
             }
           }
