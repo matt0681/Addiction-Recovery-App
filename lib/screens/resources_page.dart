@@ -15,6 +15,7 @@ class _ResourcesPageState extends State<ResourcesPage> {
   ];
 
   bool _searchBoolean= false;
+  List<int> _searchIndexList = [];
 
   Widget _defaultListView() {
     return ListView.builder(
@@ -40,9 +41,61 @@ class _ResourcesPageState extends State<ResourcesPage> {
     );
   }
 
+  Widget _searchListView() {
+    return ListView.builder(
+      itemCount: _searchIndexList.length,
+      itemBuilder: (context, index) {
+        index = _searchIndexList[index];
+        return Card(
+          color: Color(0xFF055680),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+          margin: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0.0),
+
+          child: ListTile(
+            leading: FlutterLogo(size: 50.0),
+            title: Text(
+                _resourceList[index][0],
+                style: TextStyle(color: Colors.white)),
+            subtitle: Text(
+              _resourceList[index][1],
+              style: TextStyle(color: Color(0xFF7D91BA)),
+            ),
+          ),
+        );
+      }
+    );
+  }
+
   Widget _searchTextField() {
     return TextField(
-      style: TextStyle(color: Color(0xFF2A5298)),
+      autofocus: true,
+      cursorColor: Colors.white,
+      style: TextStyle(color: Colors.white),
+      textInputAction: TextInputAction.search,
+      decoration: InputDecoration(
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.white)
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.white)
+        ),
+        hintText: 'Search',
+        hintStyle: TextStyle(
+          color: Color(0xFF7D91BA),
+          fontSize: 18,
+        ),
+      ),
+
+      onChanged: (String s) {
+        setState(() {
+          _searchIndexList = [];
+          for(int i = 0; i < _resourceList.length; i++) {
+            if(_resourceList[i][0].contains(s)) {
+              _searchIndexList.add(i);
+            }
+          }
+        });
+      },
     );
   }
 
@@ -67,6 +120,7 @@ class _ResourcesPageState extends State<ResourcesPage> {
             onPressed: () {
               setState(() {
                 _searchBoolean = true;
+                _searchIndexList = [];
               });
             })
         ]
@@ -87,7 +141,7 @@ class _ResourcesPageState extends State<ResourcesPage> {
 
       backgroundColor: Color(0xFF06294A),
 
-      body: _defaultListView(),
+      body: !_searchBoolean ? _defaultListView() : _searchListView(),
     );
   }
 }
