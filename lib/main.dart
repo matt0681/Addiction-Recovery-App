@@ -85,6 +85,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
 
+
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.white,
         backgroundColor: Color(0xFF2A5298),
