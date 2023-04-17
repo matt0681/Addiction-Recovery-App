@@ -24,8 +24,8 @@ class SettingsPage extends StatelessWidget {
 
           Card(
             color: Color(0xFF055680),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
-            margin: EdgeInsets.fromLTRB(8.0, 6.0, 8.0, 0.0),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+            margin: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0.0),
 
             child: ListTile(
               title: Text(
@@ -42,8 +42,8 @@ class SettingsPage extends StatelessWidget {
 
           Card(
             color: Color(0xFF055680),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
-            margin: EdgeInsets.fromLTRB(8.0, 6.0, 8.0, 0.0),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+            margin: EdgeInsets.fromLTRB(16.0, 6.0, 16.0, 0.0),
 
             child: ListTile(
               title: Text(
@@ -60,8 +60,8 @@ class SettingsPage extends StatelessWidget {
 
           Card(
             color: Color(0xFF055680),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
-            margin: EdgeInsets.fromLTRB(8.0, 6.0, 8.0, 0.0),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+            margin: EdgeInsets.fromLTRB(16.0, 6.0, 16.0, 0.0),
 
             child: ListTile(
               title: Text(
@@ -78,8 +78,8 @@ class SettingsPage extends StatelessWidget {
 
           Card(
             color: Color(0xFF055680),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
-            margin: EdgeInsets.fromLTRB(8.0, 6.0, 8.0, 0.0),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+            margin: EdgeInsets.fromLTRB(16.0, 6.0, 16.0, 0.0),
 
             child: ListTile(
               title: Text(
@@ -89,24 +89,6 @@ class SettingsPage extends StatelessWidget {
               dense: false,
               trailing: Text(
                 'OFF',
-                style: TextStyle(color: Colors.white, fontSize: 14.0),
-              ),
-            ),
-          ),
-
-          Card(
-            color: Color(0xFF055680),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
-            margin: EdgeInsets.fromLTRB(8.0, 6.0, 8.0, 0.0),
-
-            child: ListTile(
-              title: Text(
-                  'There are no settings yet.',
-                  style: TextStyle(color: Colors.white)
-              ),
-              dense: false,
-              trailing: Text(
-                'ON',
                 style: TextStyle(color: Colors.white, fontSize: 14.0),
               ),
             ),
