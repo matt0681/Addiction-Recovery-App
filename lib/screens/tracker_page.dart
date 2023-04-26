@@ -90,7 +90,7 @@ class _TrackerPageState extends State<TrackerPage> {
   }
 
 
-  TextStyle quoteStyle = TextStyle(color: Color(0xFF899BC0), fontSize: 16); // 0xFF7D91BA
+  TextStyle quoteStyle = TextStyle(color: Color(0xFF7D91BA), fontSize: 16); // 0xFF7D91BA, 0xFF899BC0
 
   final List<String> _quoteList = [
     "Be watchful; taken by surprise\nHow many fall, no more to rise!\nThe storm that wakes the passion's glow\nShall lay the tender lily low.",
@@ -109,6 +109,31 @@ class _TrackerPageState extends State<TrackerPage> {
           style: TextStyle(color: Colors.white),
         ),
 
+        actions: <Widget>[
+          Container(
+            padding: EdgeInsets.all(10.0),
+            margin: EdgeInsets.fromLTRB(0.0, 10.0, 10.0, 10.0),
+            decoration: BoxDecoration(
+              // gradient: LinearGradient(
+              //   begin: Alignment.centerLeft,
+              //   end: Alignment.centerRight,
+              //   colors: [
+              //     Color(0xFF2A5298),
+              //     Color(0xFF1C3B6F),
+              //   ],
+              // ),
+              color: Color(0xFF2A5298),
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            child: Center(
+              child: Text(
+                '0 Days Sober',
+                style: TextStyle(color: Colors.white),
+              ),
+            )
+          ),
+        ],
+
         backgroundColor: Color(0xFF06294A),
         elevation: 0.0,
       ),
@@ -118,11 +143,12 @@ class _TrackerPageState extends State<TrackerPage> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        child: Column(
-          children: <Widget>[
 
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+          children: <Widget>[
             Container(
-              padding: EdgeInsets.fromLTRB(0.0, 2.0, 0.0, 15.0),
               color: Color(0xFF06294A),
               child: Column(
                 children: [
@@ -146,24 +172,13 @@ class _TrackerPageState extends State<TrackerPage> {
               ),
             ),
 
-
             Container(
-              padding: EdgeInsets.all(10),
-              decoration: ShapeDecoration(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15.0))
-                ),
+              margin: EdgeInsets.fromLTRB(5.0, 20.0, 5.0, 5.0),
+              padding: EdgeInsets.all(1.0),
+              decoration: BoxDecoration(
                 color: Color(0xFF055680),
+                borderRadius: BorderRadius.circular(20.0),
               ),
-              child: Text(
-                '0 Days Sober',
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            ),
-
-
-            Container(
-              padding: EdgeInsets.all(2),
 
               child: TableCalendar<TrackerEvent>(
                 focusedDay: _focusedDay,
@@ -187,42 +202,12 @@ class _TrackerPageState extends State<TrackerPage> {
                   // Use 'CalendarStyle' to customize the UI.
                   outsideDaysVisible: false,
 
-                  // defaultDecoration: The decoration for all the weekdays.
-                  // disabledDecoration: ??
-                  // selectedDecoration: The decoration for whatever day is selected.
-                  // holidayDecoration: ??
-                  // markerDecoration: The decoration for event markers.
-                  // outsideDecoration: ??
-                  // rangeEndDecoration: ??
-                  // rangeStartDecoration: ??
-                  // todayDecoration: The decoration for today's current day.
-                  // weekendDecoration: The decoration for the weekend days.
-                  // withinRangeDecoration: ??
-
-                  defaultDecoration: ShapeDecoration(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15.0))
-                    ),
-                    color: Color(0xFF055680),
-                  ),
-                  weekendDecoration: ShapeDecoration(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15.0))
-                    ),
-                    color: Color(0xFF055680),
-                  ),
                 ),
 
                 headerStyle: HeaderStyle(
                   titleCentered: true,
-                  formatButtonDecoration: BoxDecoration(
-                    color: Color(0xFF055680),
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  formatButtonTextStyle: TextStyle(
-                    color: Colors.white,
-                  ),
-                  formatButtonShowsNext: false,
+                  titleTextStyle: TextStyle(color: Colors.white),
+                  formatButtonVisible: false,
                 ),
 
                 onRangeSelected: _onRangeSelected,
@@ -236,6 +221,22 @@ class _TrackerPageState extends State<TrackerPage> {
                 onPageChanged: (focusedDay) {
                   _focusedDay = focusedDay;
                 },
+
+                calendarBuilders: CalendarBuilders(
+                  selectedBuilder: (context, date, events) =>
+                      Container(
+                        alignment: Alignment.center,
+                        color: Theme.of(context).primaryColor,
+                        child: Text(date.day.toString()),
+                      ),
+                  defaultBuilder: (context, date, events) =>
+                      Container(
+                        alignment: Alignment.center,
+                        color: Theme.of(context).primaryColor,
+                        child: Text(date.day.toString()),
+                      )
+                ),
+
               ),
             ),
 
