@@ -171,9 +171,6 @@ class _TrackerPageState extends State<TrackerPage> {
                 lastDay: tracker_last_day,
 
                 locale: "en_US",  // USA Language calendar.
-                headerStyle: HeaderStyle(
-                  formatButtonVisible: false,
-                  titleCentered: true),
                 availableGestures: AvailableGestures.all, // Allows finger gestures to navigate calendar.
 
                 onDaySelected: _onDaySelected,  // Updates the selected day and selected day events variables.
@@ -185,10 +182,47 @@ class _TrackerPageState extends State<TrackerPage> {
                 rangeSelectionMode: _rangeSelectionMode,
                 eventLoader: _getEventsForDay,
                 startingDayOfWeek: StartingDayOfWeek.sunday,
+
                 calendarStyle: CalendarStyle(
                   // Use 'CalendarStyle' to customize the UI.
                   outsideDaysVisible: false,
 
+                  // defaultDecoration: The decoration for all the weekdays.
+                  // disabledDecoration: ??
+                  // selectedDecoration: The decoration for whatever day is selected.
+                  // holidayDecoration: ??
+                  // markerDecoration: The decoration for event markers.
+                  // outsideDecoration: ??
+                  // rangeEndDecoration: ??
+                  // rangeStartDecoration: ??
+                  // todayDecoration: The decoration for today's current day.
+                  // weekendDecoration: The decoration for the weekend days.
+                  // withinRangeDecoration: ??
+
+                  defaultDecoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15.0))
+                    ),
+                    color: Color(0xFF055680),
+                  ),
+                  weekendDecoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15.0))
+                    ),
+                    color: Color(0xFF055680),
+                  ),
+                ),
+
+                headerStyle: HeaderStyle(
+                  titleCentered: true,
+                  formatButtonDecoration: BoxDecoration(
+                    color: Color(0xFF055680),
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  formatButtonTextStyle: TextStyle(
+                    color: Colors.white,
+                  ),
+                  formatButtonShowsNext: false,
                 ),
 
                 onRangeSelected: _onRangeSelected,
