@@ -173,7 +173,7 @@ class _TrackerPageState extends State<TrackerPage> {
             ),
 
             Container(
-              margin: EdgeInsets.fromLTRB(5.0, 20.0, 5.0, 5.0),
+              margin: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 5.0),
               padding: EdgeInsets.all(1.0),
               decoration: BoxDecoration(
                 color: Color(0xFF055680),
@@ -201,7 +201,15 @@ class _TrackerPageState extends State<TrackerPage> {
                 calendarStyle: CalendarStyle(
                   // Use 'CalendarStyle' to customize the UI.
                   outsideDaysVisible: false,
-
+                  weekendTextStyle: TextStyle(color: Colors.white),
+                  defaultTextStyle: TextStyle(color: Colors.white),
+                  markersMaxCount: 1,
+                  canMarkersOverflow: false,
+                  markerSizeScale: 0.333,
+                  markerDecoration: ShapeDecoration(
+                    color: Colors.green,
+                    shape: CircleBorder(),
+                  ),
                 ),
 
                 headerStyle: HeaderStyle(
@@ -223,18 +231,18 @@ class _TrackerPageState extends State<TrackerPage> {
                 },
 
                 calendarBuilders: CalendarBuilders(
-                  selectedBuilder: (context, date, events) =>
-                      Container(
-                        alignment: Alignment.center,
-                        color: Theme.of(context).primaryColor,
-                        child: Text(date.day.toString()),
-                      ),
-                  defaultBuilder: (context, date, events) =>
-                      Container(
-                        alignment: Alignment.center,
-                        color: Theme.of(context).primaryColor,
-                        child: Text(date.day.toString()),
-                      )
+                  // selectedBuilder: (context, date, events) =>
+                  //     Container(
+                  //       alignment: Alignment.center,
+                  //       color: Theme.of(context).primaryColor,
+                  //       child: Text(date.day.toString()),
+                  //     ),
+                  // defaultBuilder: (context, date, events) =>
+                  //     Container(
+                  //       alignment: Alignment.center,
+                  //       color: Theme.of(context).primaryColor,
+                  //       child: Text(date.day.toString()),
+                  //     )
                 ),
 
               ),
