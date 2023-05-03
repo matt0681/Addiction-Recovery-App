@@ -198,6 +198,15 @@ class _TrackerPageState extends State<TrackerPage> {
                 eventLoader: _getEventsForDay,
                 startingDayOfWeek: StartingDayOfWeek.sunday,
 
+                daysOfWeekStyle: DaysOfWeekStyle(
+                  weekdayStyle: TextStyle(color: Color(0xFF93AACE)),
+                  weekendStyle: TextStyle(color: Color(0xFF93AACE)),
+                ),
+
+                sixWeekMonthsEnforced: true,
+
+
+
                 calendarStyle: CalendarStyle(
                   // Use 'CalendarStyle' to customize the UI.
                   outsideDaysVisible: false,
@@ -205,10 +214,24 @@ class _TrackerPageState extends State<TrackerPage> {
                   defaultTextStyle: TextStyle(color: Colors.white),
                   markersMaxCount: 1,
                   canMarkersOverflow: false,
-                  markerSizeScale: 0.333,
+                  markerSizeScale: 0.35, //0.333,
                   markerDecoration: ShapeDecoration(
-                    color: Colors.green,
+                    color: Color(0xFF00ff00),
                     shape: CircleBorder(),
+                  ),
+
+                  selectedDecoration: ShapeDecoration(
+                    color: Color(0xBB6182b8),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0))
+                    ),
+                  ),
+
+                  todayDecoration: ShapeDecoration(
+                    color: Color(0x556182b8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    ),
                   ),
                 ),
 
@@ -216,6 +239,14 @@ class _TrackerPageState extends State<TrackerPage> {
                   titleCentered: true,
                   titleTextStyle: TextStyle(color: Colors.white),
                   formatButtonVisible: false,
+                  leftChevronIcon: Icon(
+                    Icons.chevron_left_outlined,
+                    color: Colors.white,
+                  ),
+                  rightChevronIcon: Icon(
+                    Icons.chevron_right_outlined,
+                    color: Colors.white,
+                  ),
                 ),
 
                 onRangeSelected: _onRangeSelected,
