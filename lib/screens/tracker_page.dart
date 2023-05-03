@@ -56,28 +56,133 @@ class _TrackerPageState extends State<TrackerPage> {
     ];
   }
 
+  // 0 = day of week.
+  // 1 = month.
+  String _getNameFromDateInt(int type, int intInput) {
+    if (type == 0) {
+      switch(intInput) {
+        case 7:
+          return "Sunday";
+          break;
+        case 1:
+          return "Monday";
+          break;
+        case 2:
+          return "Tuesday";
+          break;
+        case 3:
+          return "Wednesday";
+          break;
+        case 4:
+          return "Thursday";
+          break;
+        case 5:
+          return "Friday";
+          break;
+        case 6:
+          return "Saturday";
+          break;
+        default:
+          return "ERROR";
+      }
+    } else if (type == 1) {
+      switch(intInput) {
+        case 1:
+          return "January";
+          break;
+        case 2:
+          return "February";
+          break;
+        case 3:
+          return "March";
+          break;
+        case 4:
+          return "April";
+          break;
+        case 5:
+          return "May";
+          break;
+        case 6:
+          return "June";
+          break;
+        case 7:
+          return "July";
+          break;
+        case 8:
+          return "August";
+          break;
+        case 9:
+          return "September";
+          break;
+        case 10:
+          return "October";
+          break;
+        case 11:
+          return "November";
+          break;
+        case 12:
+          return "December";
+          break;
+        default:
+          return "ERROR";
+      }
+    } else {
+      return "ERROR";
+    }
+  }
+
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     showDialog<String>(
       context: context,
       builder: (BuildContext context) => Dialog(
+        backgroundColor: Color(0xFF2A5298),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
         child: Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(15.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text('Testing, testing.'),
-              SizedBox(height: 15),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text('Close'),
-              )
+
+              Text(_getNameFromDateInt(0, selectedDay.weekday),
+                style: TextStyle(color: Colors.white,),
+              ),
+
+              Text("${_getNameFromDateInt(1, selectedDay.month)} ${selectedDay.day}, "
+                    "${selectedDay.year}",
+                style: TextStyle(color: Colors.white,),
+              ),
+
+              SizedBox(height: 8.0),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  TextButton(
+                    style: ButtonStyle(),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text('Success', style: TextStyle(color: Color(0xFF00ff00))),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text('Neutral', style: TextStyle(color: Colors.grey)),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text('Failure', style: TextStyle(color: Color(0xFFff3300))),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
-      )
+      ),
     );
 
     if (!isSameDay(_selectedDay, selectedDay)) {
