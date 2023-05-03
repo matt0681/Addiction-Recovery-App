@@ -57,6 +57,29 @@ class _TrackerPageState extends State<TrackerPage> {
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => Dialog(
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text('Testing, testing.'),
+              SizedBox(height: 15),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('Close'),
+              )
+            ],
+          ),
+        ),
+      )
+    );
+
     if (!isSameDay(_selectedDay, selectedDay)) {
       setState(() {
         _selectedDay = selectedDay;
@@ -130,7 +153,7 @@ class _TrackerPageState extends State<TrackerPage> {
                 '0 Days Sober',
                 style: TextStyle(color: Colors.white),
               ),
-            )
+            ),
           ),
         ],
 
@@ -205,8 +228,6 @@ class _TrackerPageState extends State<TrackerPage> {
 
                 sixWeekMonthsEnforced: true,
 
-
-
                 calendarStyle: CalendarStyle(
                   // Use 'CalendarStyle' to customize the UI.
                   outsideDaysVisible: false,
@@ -260,22 +281,6 @@ class _TrackerPageState extends State<TrackerPage> {
                 onPageChanged: (focusedDay) {
                   _focusedDay = focusedDay;
                 },
-
-                calendarBuilders: CalendarBuilders(
-                  // selectedBuilder: (context, date, events) =>
-                  //     Container(
-                  //       alignment: Alignment.center,
-                  //       color: Theme.of(context).primaryColor,
-                  //       child: Text(date.day.toString()),
-                  //     ),
-                  // defaultBuilder: (context, date, events) =>
-                  //     Container(
-                  //       alignment: Alignment.center,
-                  //       color: Theme.of(context).primaryColor,
-                  //       child: Text(date.day.toString()),
-                  //     )
-                ),
-
               ),
             ),
 
