@@ -15,7 +15,7 @@ const int STATUS_NEUTRAL = 2;
 
 /// Class for defining what a sobriety counter 'event' should be.
 class TrackerEvent {
-  final int status;   // See Statuses aove for different options.
+  final int status;   // See Statuses above for different options.
 
   const TrackerEvent(this.status);
 

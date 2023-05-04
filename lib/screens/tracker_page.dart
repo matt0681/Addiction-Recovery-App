@@ -131,6 +131,13 @@ class _TrackerPageState extends State<TrackerPage> {
     }
   }
 
+  void _addEventToDay(int status, DateTime day) {
+    TrackerEvent event = TrackerEvent(status);
+    Map<DateTime, TrackerEvent> eventMap = {day : event};
+    tracker_events_list.addAll(eventMap);
+    print(tracker_events_list.toString());
+  }
+
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     showDialog<String>(
       context: context,
@@ -163,6 +170,7 @@ class _TrackerPageState extends State<TrackerPage> {
                   TextButton(
                     style: ButtonStyle(),
                     onPressed: () {
+                      _addEventToDay(STATUS_SUCCESS, selectedDay);
                       Navigator.pop(context);
                     },
                     child: Text('Success', style: TextStyle(color: Color(0xFF00ff00))),
@@ -175,6 +183,7 @@ class _TrackerPageState extends State<TrackerPage> {
                   ),
                   TextButton(
                     onPressed: () {
+                      _addEventToDay(STATUS_FAILURE, selectedDay);
                       Navigator.pop(context);
                     },
                     child: Text('Failure', style: TextStyle(color: Color(0xFFff3300))),
@@ -195,6 +204,8 @@ class _TrackerPageState extends State<TrackerPage> {
         _rangeEnd = null;
         _rangeSelectionMode = RangeSelectionMode.toggledOff;
       });
+
+      print(_getEventsForDay(selectedDay));
 
       _selectedEvents.value = _getEventsForDay(selectedDay);
     }
