@@ -135,20 +135,22 @@ class _TrackerPageState extends State<TrackerPage> {
     showDialog<String>(
       context: context,
       builder: (BuildContext context) => Dialog(
+        insetPadding: EdgeInsets.all(70.0),
         backgroundColor: Color(0xFF2A5298),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
         child: Padding(
-          padding: EdgeInsets.all(15.0),
+          padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 10.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
 
-              Text(_getNameFromDateInt(0, selectedDay.weekday),
-                style: TextStyle(color: Colors.white,),
+              Text("Set your status for",
+                style: TextStyle(color: Colors.white),
               ),
 
-              Text("${_getNameFromDateInt(1, selectedDay.month)} ${selectedDay.day}, "
+              Text("${_getNameFromDateInt(0, selectedDay.weekday)}, "
+                  "${_getNameFromDateInt(1, selectedDay.month)} ${selectedDay.day}, "
                     "${selectedDay.year}",
                 style: TextStyle(color: Colors.white,),
               ),
