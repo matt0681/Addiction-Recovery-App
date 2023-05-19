@@ -384,7 +384,7 @@ class _TrackerPageState extends State<TrackerPage> {
                           color: events.first.getColor(),
                           shape: CircleBorder(),
                         ),
-                        child: Text('A'),
+                        child: Text('O'),
                       );
                     } else {
                       return null;
