@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 
@@ -21,6 +22,24 @@ class TrackerEvent {
 
   int getStatus() {
     return status;
+  }
+
+  Color getColor() {
+    switch(status) {
+      case STATUS_SUCCESS:
+        return Color(0xFF00ff00);
+        break;
+      case STATUS_FAILURE:
+        return Color(0xFFff3300);
+        break;
+      case STATUS_NEUTRAL:
+        return Colors.grey;
+        break;
+      default:
+        print('ERROR in Tracker Utils, cannot determine tracker event color.');
+        return Colors.deepPurpleAccent;
+        break;
+    }
   }
 
   @override

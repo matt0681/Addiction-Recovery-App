@@ -355,7 +355,7 @@ class _TrackerPageState extends State<TrackerPage> {
                   canMarkersOverflow: false,
                   markerSizeScale: 0.35, //0.333,
                   markerDecoration: ShapeDecoration(
-                    color: Color(0xFF00ff00),
+                    color: ,
                     shape: CircleBorder(),
                   ),
 
