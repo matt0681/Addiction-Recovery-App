@@ -355,9 +355,11 @@ class _TrackerPageState extends State<TrackerPage> {
                   canMarkersOverflow: false,
                   markerSizeScale: 0.35, //0.333,
                   markerDecoration: ShapeDecoration(
-                    color: ,
+                    color: Colors.white,
                     shape: CircleBorder(),
                   ),
+
+
 
                   selectedDecoration: ShapeDecoration(
                     color: Color(0xBB6182b8),
@@ -372,6 +374,22 @@ class _TrackerPageState extends State<TrackerPage> {
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     ),
                   ),
+                ),
+
+                calendarBuilders: CalendarBuilders(
+                  markerBuilder: (context, day, events) {
+                    if(events.isNotEmpty) {
+                      return Container(
+                        decoration: ShapeDecoration(
+                          color: events.first.getColor(),
+                          shape: CircleBorder(),
+                        ),
+                        child: Text('A'),
+                      );
+                    } else {
+                      return null;
+                    }
+                  },
                 ),
 
                 headerStyle: HeaderStyle(
