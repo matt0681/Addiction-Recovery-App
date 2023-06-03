@@ -13,7 +13,7 @@ class TrackerPage extends StatefulWidget {
 /// Tracker Page State class.
 class _TrackerPageState extends State<TrackerPage> {
 
-  // Defining some basic variables for the calendar.
+  // Defining some variables for the calendar.
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
@@ -36,6 +36,7 @@ class _TrackerPageState extends State<TrackerPage> {
     super.dispose();
   }
 
+  // Returns a list containing the event on the specified day parameter.
   List<TrackerEvent> _getEventsForDay(DateTime day) {
     var events = tracker_events_list[day];
 
@@ -48,6 +49,7 @@ class _TrackerPageState extends State<TrackerPage> {
     // return kEvents[day] ?? [];
   }
 
+  // Returns a list of events within the range parameters specified.
   List<TrackerEvent> _getEventsForRange(DateTime start, DateTime end) {
     final days = daysInRange(start, end);
 
@@ -56,6 +58,7 @@ class _TrackerPageState extends State<TrackerPage> {
     ];
   }
 
+  // Converts a number day or month into it's respective string.
   // 0 = day of week.
   // 1 = month.
   String _getNameFromDateInt(int type, int intInput) {
@@ -131,6 +134,9 @@ class _TrackerPageState extends State<TrackerPage> {
     }
   }
 
+  // This function adds an event to the specified day. It takes in an event status
+  // and a day. Their can only be one event per day so the status determines the
+  // event type (success, failure, neutral).
   void _addEventToDay(int status, DateTime day) {
     TrackerEvent event = TrackerEvent(status);
     Map<DateTime, TrackerEvent> eventMap = {day : event};
@@ -138,6 +144,9 @@ class _TrackerPageState extends State<TrackerPage> {
     print(tracker_events_list.toString());
   }
 
+  // When you select a day a popup card will appear asking to select that day's
+  // status. You can select Success, neutral, or failure. The app will then create
+  // an event for that day and display the corresponding status color.
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     showDialog<String>(
       context: context,
@@ -211,6 +220,7 @@ class _TrackerPageState extends State<TrackerPage> {
     }
   }
 
+  // Handles a selected range logic.
   void _onRangeSelected(DateTime? start, DateTime? end, DateTime focusedDay) {
     setState(() {
       _selectedDay = null;
@@ -230,16 +240,18 @@ class _TrackerPageState extends State<TrackerPage> {
     }
   }
 
-
+  // The set style for displayed quotes.
   TextStyle quoteStyle = TextStyle(color: Color(0xFF7D91BA), fontSize: 16); // 0xFF7D91BA, 0xFF899BC0
 
+  // The current storage method for displayed quotes.
   final List<String> _quoteList = [
     "Be watchful; taken by surprise\nHow many fall, no more to rise!\nThe storm that wakes the passion's glow\nShall lay the tender lily low.",
     "Quote #2",
     "Quote #3",
   ];
 
-
+  // The main graphics handler/scaffolding for the tracker page. Contains a
+  // sobriety day counter, a quote, a title, and a calendar.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -346,6 +358,7 @@ class _TrackerPageState extends State<TrackerPage> {
 
                 sixWeekMonthsEnforced: true,
 
+                // Sets display properties to make the app really look good.
                 calendarStyle: CalendarStyle(
                   // Use 'CalendarStyle' to customize the UI.
                   outsideDaysVisible: false,
@@ -358,8 +371,6 @@ class _TrackerPageState extends State<TrackerPage> {
                     color: Colors.white,
                     shape: CircleBorder(),
                   ),
-
-
 
                   selectedDecoration: ShapeDecoration(
                     color: Color(0xBB6182b8),
@@ -376,6 +387,8 @@ class _TrackerPageState extends State<TrackerPage> {
                   ),
                 ),
 
+                // Certain display properties are better set in the calendar
+                // builders than in the calendar style.
                 calendarBuilders: CalendarBuilders(
                   markerBuilder: (context, day, events) {
                     if(events.isNotEmpty) {
