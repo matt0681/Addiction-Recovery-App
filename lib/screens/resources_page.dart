@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-
+/// This page is for listing various sobriety resources to the user as well
+/// as affiliate links and other important information.
 class ResourcesPage extends StatefulWidget {
   @override
   State<ResourcesPage> createState() => _ResourcesPageState();
 }
 
-
 class _ResourcesPageState extends State<ResourcesPage> {
-
+  // This is the current listing/storage method for the different resources.
   // [Title, SubTitle, Affiliate(0=false,1=true), Link, Image?]
   final List<List<String>> _resourceList = [
     ["Classic AA Book", "Used by all North American AA groups.", "0", "www.google.com", "Book"],
@@ -89,6 +89,8 @@ class _ResourcesPageState extends State<ResourcesPage> {
         ),
       ),
 
+      // This provides logic for the search bar.
+      // It sees if any of the resources contain the searched string.
       onChanged: (String s) {
         setState(() {
           _searchIndexList = [];
@@ -105,7 +107,8 @@ class _ResourcesPageState extends State<ResourcesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      // This extra logic is to change colors, sizes, and icons when something
+      // is searched for in the top appbar.
       appBar: AppBar(
         title: ! _searchBoolean
           ?
