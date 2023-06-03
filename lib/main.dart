@@ -9,7 +9,7 @@ import 'package:noe_more/screens/tracker_page.dart';
 /// This runs the MyApp Widget. It will load the entire app before letting the
 /// user interact with it. (the 'loading'/splash screen will display to them)
 Future main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized(); //
 
   FlutterNativeSplash.removeAfter(initialization);
 
@@ -21,7 +21,7 @@ Future initialization(BuildContext? context) async {
 }
 
 /// The MyApp Widget creates a basic app theme and then loads the
-/// InitialPage Widget as the first page the user sees.
+/// HomePage Widget as the first page the user sees.
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -39,8 +39,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// This page contains the bottom navigation bar and displays which ever
-/// page is currently selected.
+/// This page contains the bottom navigation bar and displays the currently
+/// selected page.
 class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
@@ -48,20 +48,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  int _selectedIndex = 0;
+  int _selectedIndex = 0;  // Index of the selected page.
 
+  // A list of the different available pages.
   final List<Widget> _widgetOptions = <Widget>[
     TrackerPage(),
     ResourcesPage(),
     SettingsPage()
   ];
 
+  // Logic for selecting a different page.
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
 
+  // The graphics logic/ scaffolding for the home page.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,7 +87,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
 
-
+        // Various logic and graphics settings.
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.white,
         backgroundColor: Color(0xFF2A5298),
