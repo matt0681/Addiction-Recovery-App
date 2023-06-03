@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-
+/// This page serves as a settings dashboard for the user.
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
+  // This is the graphics/scaffold section.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
