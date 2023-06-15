@@ -4,6 +4,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:noe_more/screens/resources_page.dart';
 import 'package:noe_more/screens/settings_page.dart';
 import 'package:noe_more/screens/tracker_page.dart';
+import 'package:noe_more/screens/stats_page.dart';
 
 
 /// This runs the MyApp Widget. It will load the entire app before letting the
@@ -53,6 +54,7 @@ class _HomePageState extends State<HomePage> {
   // A list of the different available pages.
   final List<Widget> _widgetOptions = <Widget>[
     TrackerPage(),
+    StatsPage(),
     ResourcesPage(),
     SettingsPage()
   ];
@@ -72,10 +74,15 @@ class _HomePageState extends State<HomePage> {
       body: _widgetOptions.elementAt(_selectedIndex),
 
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.event_outlined),
             label: 'Tracker',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.query_stats_outlined),
+            label: 'Stats',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.local_library_outlined),
