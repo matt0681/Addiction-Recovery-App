@@ -10,7 +10,7 @@ class StatsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-            'Settings',
+            'Statistics',
             style: TextStyle(color: Colors.white),
         ),
 
@@ -30,12 +30,120 @@ class StatsPage extends StatelessWidget {
 
             child: ListTile(
               title: Text(
-                'There are no settings yet.',
+                '% Abstinent this week',
                 style: TextStyle(color: Colors.white)
               ),
               dense: false,
               trailing: Text(
-                'OFF',
+                '10%',
+                style: TextStyle(color: Colors.white, fontSize: 14.0),
+              ),
+            ),
+          ),
+
+          Card(
+            color: Color(0xFF055680),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+            margin: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0.0),
+
+            child: ListTile(
+              title: Text(
+                  '% abstinent this month',
+                  style: TextStyle(color: Colors.white)
+              ),
+              dense: false,
+              trailing: Text(
+                '20%',
+                style: TextStyle(color: Colors.white, fontSize: 14.0),
+              ),
+            ),
+          ),
+
+          Card(
+            color: Color(0xFF055680),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+            margin: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0.0),
+
+            child: ListTile(
+              title: Text(
+                  '% abstinent this year',
+                  style: TextStyle(color: Colors.white)
+              ),
+              dense: false,
+              trailing: Text(
+                '50%',
+                style: TextStyle(color: Colors.white, fontSize: 14.0),
+              ),
+            ),
+          ),
+
+          Card(
+            color: Color(0xFF055680),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+            margin: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0.0),
+
+            child: ListTile(
+              title: Text(
+                  'Current Streak',
+                  style: TextStyle(color: Colors.white)
+              ),
+              dense: false,
+              trailing: Text(
+                '1 day',
+                style: TextStyle(color: Colors.white, fontSize: 14.0),
+              ),
+            ),
+          ),
+
+          Card(
+            color: Color(0xFF055680),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+            margin: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0.0),
+
+            child: ListTile(
+              title: Text(
+                  'Previous streak',
+                  style: TextStyle(color: Colors.white)
+              ),
+              dense: false,
+              trailing: Text(
+                '10 days',
+                style: TextStyle(color: Colors.white, fontSize: 14.0),
+              ),
+            ),
+          ),
+
+          Card(
+            color: Color(0xFF055680),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+            margin: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0.0),
+
+            child: ListTile(
+              title: Text(
+                  'Maximum streak',
+                  style: TextStyle(color: Colors.white)
+              ),
+              dense: false,
+              trailing: Text(
+                '3 months',
+                style: TextStyle(color: Colors.white, fontSize: 14.0),
+              ),
+            ),
+          ),
+
+          Card(
+            color: Color(0xFF055680),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+            margin: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0.0),
+
+            child: ListTile(
+              title: Text(
+                  'Minimum streak',
+                  style: TextStyle(color: Colors.white)
+              ),
+              dense: false,
+              trailing: Text(
+                '20 minutes',
                 style: TextStyle(color: Colors.white, fontSize: 14.0),
               ),
             ),
