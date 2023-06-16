@@ -61,7 +61,6 @@ class TrackerEvent {
   }
 }
 
-
 /// A LinkedHashMap of events where each DateTime is mapped to an Event.
 /// The map uses 'isSameDay' to compare any new DateTime entries to those already in the map.
 /// the 'isSameDay' function ignores time, making all the DateTime keys totally date based.
@@ -97,5 +96,28 @@ List<DateTime> daysInRange(DateTime first, DateTime last) {
   return List.generate(dayCount,
         (index) => DateTime.utc(first.year, first.month, first.day + index),
   );
+}
+
+
+// Returns a list containing the event on the specified day parameter.
+List<TrackerEvent> _getEventsForDay(DateTime day) {
+  var events = tracker_events_list[day];
+
+  if (events == null) {
+    return [];
+  } else {
+    return [events];
+  }
+
+  // return kEvents[day] ?? [];
+}
+
+// Returns a list of events within the range parameters specified.
+List<TrackerEvent> _getEventsForRange(DateTime start, DateTime end) {
+  final days = daysInRange(start, end);
+
+  return [
+    for (final d in days) ..._getEventsForDay(d),
+  ];
 }
 
