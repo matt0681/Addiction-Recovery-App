@@ -366,11 +366,11 @@ class _TrackerPageState extends State<TrackerPage> {
                   defaultTextStyle: TextStyle(color: Colors.white),
                   markersMaxCount: 1,
                   canMarkersOverflow: false,
-                  markerSizeScale: 0.35, //0.333,
-                  markerDecoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: CircleBorder(),
-                  ),
+                  // markerSizeScale: 0.35, //0.333,
+                  // markerDecoration: ShapeDecoration(
+                  //   color: Colors.white,
+                  //   shape: CircleBorder(),
+                  // ),
 
                   selectedDecoration: ShapeDecoration(
                     color: Color(0xBB6182b8),
@@ -391,16 +391,26 @@ class _TrackerPageState extends State<TrackerPage> {
                 // builders than in the calendar style.
                 calendarBuilders: CalendarBuilders(
                   markerBuilder: (context, day, events) {
-                    if(events.isNotEmpty) {
-                      return Container(
-                        decoration: ShapeDecoration(
-                          color: events.first.getColor(),
-                          shape: CircleBorder(),
-                        ),
-                        child: Text('O'),
-                      );
+                    if(events.isEmpty) {
+                      return SizedBox(); // return null;
                     } else {
-                      return null;
+                      return Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(1),
+                        child: Container(
+                          height: 40,
+                          width: 42,
+                          decoration: ShapeDecoration(
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                color: events.first.getColor().withOpacity(0.7),
+                                width: 4,
+                              ),
+                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                            ),
+                          )
+                        ),
+                      );
                     }
                   },
                 ),

@@ -38,6 +38,7 @@ class _ResourcesPageState extends State<ResourcesPage> {
               _resourceList[index][1],
               style: TextStyle(color: Color(0xFF7D91BA)),
             ),
+            // onTap: () => launchUrl(),
           ),
         );
       },
