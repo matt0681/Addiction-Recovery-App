@@ -404,7 +404,7 @@ class _TrackerPageState extends State<TrackerPage> {
                             shape: RoundedRectangleBorder(
                               side: BorderSide(
                                 color: events.first.getColor().withOpacity(0.7),
-                                width: 4,
+                                width: 3,
                               ),
                               borderRadius: BorderRadius.all(Radius.circular(10.0)),
                             ),
