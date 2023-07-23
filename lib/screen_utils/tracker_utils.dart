@@ -33,7 +33,7 @@ class TrackerEvent {
         return Color(0xFFff3300);
         break;
       case STATUS_NEUTRAL:
-        return Colors.grey;
+        return Color(0xFF808080);
         break;
       default:
         print('ERROR in Tracker Utils, cannot determine tracker event color.');

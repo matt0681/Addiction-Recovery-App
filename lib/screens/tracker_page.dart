@@ -144,74 +144,81 @@ class _TrackerPageState extends State<TrackerPage> {
     print(tracker_events_list.toString());
   }
 
+  void _deleteEventOnDay(DateTime day) {
+    tracker_events_list.remove(day);
+  }
+
+  int _countSobriety() {
+    int out = 0;
+    bool eventExists? = true;
+
+
+    return out;
+  }
+
   // When you select a day a popup card will appear asking to select that day's
   // status. You can select Success, neutral, or failure. The app will then create
   // an event for that day and display the corresponding status color.
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
 
-    GestureDetector(
-      onTap: () {
-        print("I was tapped!");
-        showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => Dialog(
-            insetPadding: EdgeInsets.all(70.0),
-            backgroundColor: Color(0xFF2A5298),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 10.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
+    print("I was tapped!");
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => Dialog(
+        insetPadding: EdgeInsets.all(70.0),
+        backgroundColor: Color(0xFF2A5298),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 10.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+
+              Text("Set your status for",
+                style: TextStyle(color: Colors.white),
+              ),
+
+              Text("${_getNameFromDateInt(0, selectedDay.weekday)}, "
+                  "${_getNameFromDateInt(1, selectedDay.month)} ${selectedDay.day}, "
+                  "${selectedDay.year}",
+                style: TextStyle(color: Colors.white,),
+              ),
+
+              SizedBox(height: 8.0),
+
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-
-                  Text("Set your status for",
-                    style: TextStyle(color: Colors.white),
+                  TextButton(
+                    style: ButtonStyle(),
+                    onPressed: () {
+                      _addEventToDay(STATUS_SUCCESS, selectedDay);
+                      Navigator.pop(context);
+                    },
+                    child: Text('Success', style: TextStyle(color: Color(0xFF00ff00))),
                   ),
-
-                  Text("${_getNameFromDateInt(0, selectedDay.weekday)}, "
-                      "${_getNameFromDateInt(1, selectedDay.month)} ${selectedDay.day}, "
-                      "${selectedDay.year}",
-                    style: TextStyle(color: Colors.white,),
+                  TextButton(
+                    onPressed: () {
+                      _deleteEventOnDay(selectedDay);
+                      Navigator.pop(context);
+                    },
+                    child: Text('Neutral', style: TextStyle(color: Colors.grey)),
                   ),
-
-                  SizedBox(height: 8.0),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      TextButton(
-                        style: ButtonStyle(),
-                        onPressed: () {
-                          _addEventToDay(STATUS_SUCCESS, selectedDay);
-                          Navigator.pop(context);
-                        },
-                        child: Text('Success', style: TextStyle(color: Color(0xFF00ff00))),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text('Neutral', style: TextStyle(color: Colors.grey)),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          _addEventToDay(STATUS_FAILURE, selectedDay);
-                          Navigator.pop(context);
-                        },
-                        child: Text('Failure', style: TextStyle(color: Color(0xFFff3300))),
-                      ),
-                    ],
+                  TextButton(
+                    onPressed: () {
+                      _addEventToDay(STATUS_FAILURE, selectedDay);
+                      Navigator.pop(context);
+                    },
+                    child: Text('Failure', style: TextStyle(color: Color(0xFFff3300))),
                   ),
                 ],
               ),
-            ),
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
-
-
 
     if (!isSameDay(_selectedDay, selectedDay)) {
       setState(() {
@@ -288,7 +295,7 @@ class _TrackerPageState extends State<TrackerPage> {
             ),
             child: Center(
               child: Text(
-                '0 Days Sober',
+                '${_countSobriety()} Days Sober',
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -381,7 +388,7 @@ class _TrackerPageState extends State<TrackerPage> {
                   // ),
 
                   selectedDecoration: ShapeDecoration(
-                    color: Color(0xBB6182b8),
+                    color: Color(0x006182b8), // 0xBB6182b8
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0))
                     ),
