@@ -148,13 +148,13 @@ class _TrackerPageState extends State<TrackerPage> {
     tracker_events_list.remove(day);
   }
 
-  int _countSobriety() {
-    int out = 0;
-    bool eventExists? = true;
-
-
-    return out;
-  }
+  // int _countSobriety() {
+  //   int out = 0;
+  //   bool eventExists? = true;
+  //
+  //
+  //   return out;
+  // }
 
   // When you select a day a popup card will appear asking to select that day's
   // status. You can select Success, neutral, or failure. The app will then create
@@ -295,7 +295,8 @@ class _TrackerPageState extends State<TrackerPage> {
             ),
             child: Center(
               child: Text(
-                '${_countSobriety()} Days Sober',
+                // '${_countSobriety()} Days Sober',
+                '0 Days Sober',
                 style: TextStyle(color: Colors.white),
               ),
             ),
