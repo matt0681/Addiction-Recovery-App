@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// This page is for listing various sobriety resources to the user as well
 /// as affiliate links and other important information.
@@ -8,13 +9,22 @@ class ResourcesPage extends StatefulWidget {
 }
 
 class _ResourcesPageState extends State<ResourcesPage> {
+
+  Future<void> _launchURL(String url) async {
+    print("Clicking the card worked and the onTap led to this function.");
+    Uri _url = Uri.parse(url);
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
+  }
+
   // This is the current listing/storage method for the different resources.
   // [Title, SubTitle, Affiliate(0=false,1=true), Link, Image?]
   final List<List<String>> _resourceList = [
-    ["Classic AA Book", "Used by all North American AA groups.", "0", "www.google.com", "Book"],
-    ["North American AA Official Website", "Has helped Alcoholics recover since 1995.", "0", "www.google.com", "Website"],
-    ["Classic AA Book", "Used by all North American AA groups.", "1", "www.google.com", "Book"],
-    ["North American AA Official Website", "Has helped Alcoholics recover since 1995.", "1", "www.google.com", "Website"],
+    ["Classic AA Book", "Used by all North American AA groups.", "0", "https://flutter.dev/", "Book"],
+    ["North American AA Official Website", "Has helped Alcoholics recover since 1995.", "0", "https://flutter.dev/", "Website"],
+    ["Classic AA Book", "Used by all North American AA groups.", "1", "https://flutter.dev/", "Book"],
+    ["North American AA Official Website", "Has helped Alcoholics recover since 1995.", "1", "https://flutter.dev/", "Website"],
   ];
 
   bool _searchBoolean= false;
@@ -38,7 +48,7 @@ class _ResourcesPageState extends State<ResourcesPage> {
               _resourceList[index][1],
               style: TextStyle(color: Color(0xFF7D91BA)),
             ),
-            // onTap: () => launchUrl(),
+            onTap: () => _launchURL(_resourceList[index][3]),
           ),
         );
       },
@@ -51,21 +61,21 @@ class _ResourcesPageState extends State<ResourcesPage> {
       itemBuilder: (context, index) {
         index = _searchIndexList[index];
         return Card(
-          color: Color(0xFF055680),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
-          margin: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0.0),
+            color: Color(0xFF055680),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+            margin: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0.0),
 
-          child: ListTile(
-            leading: FlutterLogo(size: 50.0),
-            title: Text(
-                _resourceList[index][0],
-                style: TextStyle(color: Colors.white)),
-            subtitle: Text(
-              _resourceList[index][1],
-              style: TextStyle(color: Color(0xFF7D91BA)),
+            child: ListTile(
+              leading: FlutterLogo(size: 50.0),
+              title: Text(
+                  _resourceList[index][0],
+                  style: TextStyle(color: Colors.white)),
+              subtitle: Text(
+                _resourceList[index][1],
+                style: TextStyle(color: Color(0xFF7D91BA)),
+              ),
             ),
-          ),
-        );
+          );
       }
     );
   }
