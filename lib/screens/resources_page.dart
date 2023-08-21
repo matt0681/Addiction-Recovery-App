@@ -10,12 +10,69 @@ class ResourcesPage extends StatefulWidget {
 
 class _ResourcesPageState extends State<ResourcesPage> {
 
+  // This function lunches the provides url string into the device's default browser.
   Future<void> _launchURL(String url) async {
     print("Clicking the card worked and the onTap led to this function.");
     Uri _url = Uri.parse(url);
     if (!await launchUrl(_url)) {
       throw Exception('Could not launch $_url');
     }
+  }
+
+  // This function will open a small UI box asking the user to confirm they want
+  // to leave the app and go to the browser.
+  void openDialogBox(String url) {
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => Dialog(
+        insetPadding: EdgeInsets.all(40.0), //70
+        backgroundColor: Color(0xFF2A5298),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 10.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+
+              Text("Selected resource will open in your device's default browser.",
+                style: TextStyle(color: Colors.white, fontSize: 16),
+                textAlign: TextAlign.center,
+              ),
+
+              SizedBox(height: 6.0),
+
+              Text("Please confirm you wish to be redirected.",
+                style: TextStyle(color: Colors.white, fontSize: 16),
+                textAlign: TextAlign.center,
+              ),
+
+              SizedBox(height: 6.0),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  TextButton(
+                    style: ButtonStyle(),
+                    onPressed: () {
+                      _launchURL(url);
+                      Navigator.pop(context);
+                    },
+                    child: Text('Yes', style: TextStyle(color: Colors.white)),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text('No', style: TextStyle(color: Colors.white)),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   // This is the current listing/storage method for the different resources.
@@ -48,7 +105,7 @@ class _ResourcesPageState extends State<ResourcesPage> {
               _resourceList[index][1],
               style: TextStyle(color: Color(0xFF7D91BA)),
             ),
-            onTap: () => _launchURL(_resourceList[index][3]),
+            onTap: () => openDialogBox(_resourceList[index][3]),
           ),
         );
       },
