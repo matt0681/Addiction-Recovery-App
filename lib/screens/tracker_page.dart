@@ -139,10 +139,10 @@ class _TrackerPageState extends State<TrackerPage> {
   // event type (success, failure, neutral).
   void _addEventToDay(int status, DateTime day) {
     TrackerEvent event = TrackerEvent(status);
-    Map<DateTime, TrackerEvent> eventMap = {day : event};
+    Map<DateTime, TrackerEvent> eventMap = {day: event};
     tracker_events_list.addAll(eventMap);
-    print(tracker_events_list.toString());
   }
+
 
   void _deleteEventOnDay(DateTime day) {
     tracker_events_list.remove(day);
@@ -160,6 +160,26 @@ class _TrackerPageState extends State<TrackerPage> {
   // status. You can select Success, neutral, or failure. The app will then create
   // an event for that day and display the corresponding status color.
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) async {
+    if (selectedDay.isAfter(DateTime.now())) {
+      // If the selected day is in the future, show an error dialog
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text('Events can only be added for today or in the past.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
+      return; // Exit the function without adding the event
+    }
+
     showDialog<String>(
       context: context,
       builder: (BuildContext context) =>
