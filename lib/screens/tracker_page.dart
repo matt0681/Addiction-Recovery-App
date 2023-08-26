@@ -314,31 +314,31 @@ class _TrackerPageState extends State<TrackerPage> {
           style: TextStyle(color: Colors.white),
         ),
 
-        actions: <Widget>[
-          Container(
-            padding: EdgeInsets.all(10.0),
-            margin: EdgeInsets.fromLTRB(0.0, 10.0, 10.0, 10.0),
-            decoration: BoxDecoration(
-              // gradient: LinearGradient(
-              //   begin: Alignment.centerLeft,
-              //   end: Alignment.centerRight,
-              //   colors: [
-              //     Color(0xFF2A5298),
-              //     Color(0xFF1C3B6F),
-              //   ],
-              // ),
-              color: Color(0xFF2A5298),
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-            child: Center(
-              child: Text(
-                // '${_countSobriety()} Days Sober',
-                '0 Days Sober',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-          ),
-        ],
+        // actions: <Widget>[
+        //   Container(
+        //     padding: EdgeInsets.all(10.0),
+        //     margin: EdgeInsets.fromLTRB(0.0, 10.0, 10.0, 10.0),
+        //     decoration: BoxDecoration(
+        //       gradient: LinearGradient(
+        //         begin: Alignment.centerLeft,
+        //         end: Alignment.centerRight,
+        //         colors: [
+        //           Color(0xFF2A5298),
+        //           Color(0xFF1C3B6F),
+        //         ],
+        //       ),
+        //       color: Color(0xFF2A5298),
+        //       borderRadius: BorderRadius.circular(15.0),
+        //     ),
+        //     child: Center(
+        //       child: Text(
+        //         // '${_countSobriety()} Days Sober',
+        //         '0 Days Sober',
+        //         style: TextStyle(color: Colors.white),
+        //       ),
+        //     ),
+        //   ),
+        // ],
 
         backgroundColor: Color(0xFF06294A),
         elevation: 0.0,

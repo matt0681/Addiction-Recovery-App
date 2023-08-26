@@ -80,8 +80,6 @@ class _ResourcesPageState extends State<ResourcesPage> {
   final List<List<String>> _resourceList = [
     ["Classic AA Book", "Used by all North American AA groups.", "0", "https://flutter.dev/", "Book"],
     ["North American AA Official Website", "Has helped Alcoholics recover since 1995.", "0", "https://flutter.dev/", "Website"],
-    ["Classic AA Book", "Used by all North American AA groups.", "1", "https://flutter.dev/", "Book"],
-    ["North American AA Official Website", "Has helped Alcoholics recover since 1995.", "1", "https://flutter.dev/", "Website"],
   ];
 
   bool _searchBoolean= false;
@@ -97,7 +95,7 @@ class _ResourcesPageState extends State<ResourcesPage> {
           margin: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0.0),
 
           child: ListTile(
-            leading: FlutterLogo(size: 50.0),
+            // leading: FlutterLogo(size: 50.0),
             title: Text(
                 _resourceList[index][0],
                 style: TextStyle(color: Colors.white)),

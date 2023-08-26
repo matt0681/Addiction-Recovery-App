@@ -54,9 +54,9 @@ class _HomePageState extends State<HomePage> {
   // A list of the different available pages.
   final List<Widget> _widgetOptions = <Widget>[
     TrackerPage(),
-    StatsPage(),
+    // StatsPage(),
     ResourcesPage(),
-    SettingsPage()
+    // SettingsPage()
   ];
 
   // Logic for selecting a different page.
@@ -80,18 +80,18 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.event_outlined),
             label: 'Tracker',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.query_stats_outlined),
-            label: 'Stats',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.query_stats_outlined),
+          //   label: 'Stats',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.local_library_outlined),
             label: 'Resources',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings_outlined),
-            label: 'Settings',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.settings_outlined),
+          //   label: 'Settings',
+          // ),
         ],
 
         // Various logic and graphics settings.
