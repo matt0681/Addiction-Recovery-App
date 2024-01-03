@@ -35,7 +35,7 @@ class _ResourcesPageState extends State<ResourcesPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
 
-              Text("Selected resource will open in your device's default browser.",
+              Text("Selected resource will now open.",
                 style: TextStyle(color: Colors.white, fontSize: 16),
                 textAlign: TextAlign.center,
               ),
@@ -79,7 +79,7 @@ class _ResourcesPageState extends State<ResourcesPage> {
   // [Title, SubTitle, Affiliate(0=false,1=true), Link, Image?]
   final List<List<String>> _resourceList = [
     ["Alcoholics Anonymous Big Book; 4th Edition", "The standard AA text. ISBN: 978-1893007161", "0", "https://www.amazon.com/Alcoholics-AAWS/dp/1893007162/ref=tmm_hrd_swatch_0?_encoding=UTF8&qid=1704221875&sr=8-1", "Book"],
-    ["North American AA Official Website", "Has helped Alcoholics recover since 1995.", "0", "https://flutter.dev/", "Website"],
+    ["Alcoholics Anonymous Official Website", "Has helped Alcoholics recover since 1995.", "0", "https://www.aa.org/", "Website"],
   ];
 
   bool _searchBoolean= false;
