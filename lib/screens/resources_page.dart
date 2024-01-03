@@ -78,7 +78,7 @@ class _ResourcesPageState extends State<ResourcesPage> {
   // This is the current listing/storage method for the different resources.
   // [Title, SubTitle, Affiliate(0=false,1=true), Link, Image?]
   final List<List<String>> _resourceList = [
-    ["Classic AA Book", "Used by all North American AA groups.", "0", "https://flutter.dev/", "Book"],
+    ["Alcoholics Anonymous Big Book; 4th Edition", "The standard AA text. ISBN: 978-1893007161", "0", "https://www.amazon.com/Alcoholics-AAWS/dp/1893007162/ref=tmm_hrd_swatch_0?_encoding=UTF8&qid=1704221875&sr=8-1", "Book"],
     ["North American AA Official Website", "Has helped Alcoholics recover since 1995.", "0", "https://flutter.dev/", "Website"],
   ];
 
