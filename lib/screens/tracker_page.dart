@@ -58,82 +58,6 @@ class _TrackerPageState extends State<TrackerPage> {
     ];
   }
 
-  // Converts a number day or month into it's respective string.
-  // 0 = day of week.
-  // 1 = month.
-  String _getNameFromDateInt(int type, int intInput) {
-    if (type == 0) {
-      switch(intInput) {
-        case 7:
-          return "Sunday";
-          break;
-        case 1:
-          return "Monday";
-          break;
-        case 2:
-          return "Tuesday";
-          break;
-        case 3:
-          return "Wednesday";
-          break;
-        case 4:
-          return "Thursday";
-          break;
-        case 5:
-          return "Friday";
-          break;
-        case 6:
-          return "Saturday";
-          break;
-        default:
-          return "ERROR";
-      }
-    } else if (type == 1) {
-      switch(intInput) {
-        case 1:
-          return "January";
-          break;
-        case 2:
-          return "February";
-          break;
-        case 3:
-          return "March";
-          break;
-        case 4:
-          return "April";
-          break;
-        case 5:
-          return "May";
-          break;
-        case 6:
-          return "June";
-          break;
-        case 7:
-          return "July";
-          break;
-        case 8:
-          return "August";
-          break;
-        case 9:
-          return "September";
-          break;
-        case 10:
-          return "October";
-          break;
-        case 11:
-          return "November";
-          break;
-        case 12:
-          return "December";
-          break;
-        default:
-          return "ERROR";
-      }
-    } else {
-      return "ERROR";
-    }
-  }
-
   // This function adds an event to the specified day. It takes in an event status
   // and a day. Their can only be one event per day so the status determines the
   // event type (success, failure, neutral).
@@ -199,9 +123,8 @@ class _TrackerPageState extends State<TrackerPage> {
                     style: TextStyle(color: Colors.white),
                   ),
 
-                  Text("${_getNameFromDateInt(0, selectedDay.weekday)}, "
-                      "${_getNameFromDateInt(
-                      1, selectedDay.month)} ${selectedDay.day}, "
+                  Text("${getNameFromDateInt(0, selectedDay.weekday)}, "
+                      "${getNameFromDateInt(1, selectedDay.month)} ${selectedDay.day}, "
                       "${selectedDay.year}",
                     style: TextStyle(color: Colors.white,),
                   ),

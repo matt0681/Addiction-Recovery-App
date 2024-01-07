@@ -1,5 +1,7 @@
 import 'dart:collection';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 
@@ -98,26 +100,104 @@ List<DateTime> daysInRange(DateTime first, DateTime last) {
   );
 }
 
-
-// Returns a list containing the event on the specified day parameter.
-List<TrackerEvent> _getEventsForDay(DateTime day) {
-  var events = tracker_events_list[day];
-
-  if (events == null) {
-    return [];
+// Converts a number day or month into it's respective string.
+// 0 = day of week.
+// 1 = month.
+String getNameFromDateInt(int type, int intInput) {
+  if (type == 0) {
+    switch(intInput) {
+      case 7:
+        return "Sunday";
+        break;
+      case 1:
+        return "Monday";
+        break;
+      case 2:
+        return "Tuesday";
+        break;
+      case 3:
+        return "Wednesday";
+        break;
+      case 4:
+        return "Thursday";
+        break;
+      case 5:
+        return "Friday";
+        break;
+      case 6:
+        return "Saturday";
+        break;
+      default:
+        return "ERROR";
+    }
+  } else if (type == 1) {
+    switch(intInput) {
+      case 1:
+        return "January";
+        break;
+      case 2:
+        return "February";
+        break;
+      case 3:
+        return "March";
+        break;
+      case 4:
+        return "April";
+        break;
+      case 5:
+        return "May";
+        break;
+      case 6:
+        return "June";
+        break;
+      case 7:
+        return "July";
+        break;
+      case 8:
+        return "August";
+        break;
+      case 9:
+        return "September";
+        break;
+      case 10:
+        return "October";
+        break;
+      case 11:
+        return "November";
+        break;
+      case 12:
+        return "December";
+        break;
+      default:
+        return "ERROR";
+    }
   } else {
-    return [events];
+    return "ERROR";
   }
-
-  // return kEvents[day] ?? [];
 }
 
-// Returns a list of events within the range parameters specified.
-List<TrackerEvent> _getEventsForRange(DateTime start, DateTime end) {
-  final days = daysInRange(start, end);
 
-  return [
-    for (final d in days) ..._getEventsForDay(d),
-  ];
-}
+
+
+// // Returns a list containing the event on the specified day parameter.
+// List<TrackerEvent> _getEventsForDay(DateTime day) {
+//   var events = tracker_events_list[day];
+//
+//   if (events == null) {
+//     return [];
+//   } else {
+//     return [events];
+//   }
+//
+//   // return kEvents[day] ?? [];
+// }
+//
+// // Returns a list of events within the range parameters specified.
+// List<TrackerEvent> _getEventsForRange(DateTime start, DateTime end) {
+//   final days = daysInRange(start, end);
+//
+//   return [
+//     for (final d in days) ..._getEventsForDay(d),
+//   ];
+// }
 
