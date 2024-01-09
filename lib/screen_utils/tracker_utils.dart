@@ -1,8 +1,6 @@
-import 'dart:collection';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 
 /// Time variables.
@@ -19,11 +17,16 @@ const int STATUS_NEUTRAL = 2;
 /// Class for defining what a sobriety counter 'event' should be.
 class TrackerEvent {
   final int status;   // See Statuses above for different options.
+  final DateTime date;
 
-  const TrackerEvent(this.status);
+  const TrackerEvent(this.status, this.date);
 
   int getStatus() {
     return status;
+  }
+
+  DateTime getDate() {
+    return date;
   }
 
   Color getColor() {
@@ -63,31 +66,86 @@ class TrackerEvent {
   }
 }
 
-/// A LinkedHashMap of events where each DateTime is mapped to an Event.
-/// The map uses 'isSameDay' to compare any new DateTime entries to those already in the map.
-/// the 'isSameDay' function ignores time, making all the DateTime keys totally date based.
-final tracker_events_list = LinkedHashMap<DateTime, TrackerEvent>(
-  equals: isSameDay,
-  hashCode: getHashCode,
-)..addAll(sample_events_map);
 
-final dates = <DateTime>[
-  DateTime.utc(tracker_today.year, tracker_today.month, tracker_today.day),
-  DateTime.utc(tracker_today.year, tracker_today.month, tracker_today.day-1),
-  DateTime.utc(tracker_today.year, tracker_today.month, tracker_today.day-2),
-  DateTime.utc(tracker_today.year, tracker_today.month, tracker_today.day-3),
-];
+/// Class for defining the storage of TrackerEvents.
+class TrackerStorage {
+  /// Find the user's DOCUMENT DIRECTORY. This is different for Apple and Android devices.
+  /// The document directory is a safe place for apps to store data in. This data is not
+  /// extremely sensitive information so storing here is perfect.
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+    return directory.path;
+  }
 
-final sample_events_map = Map<DateTime, TrackerEvent>.fromIterable(
-  dates,
-  key: (item) => item,
-  value: (item) => TrackerEvent(STATUS_FAILURE)
-);
+  /// Create a reference to the file's location.
+  /// Create a file in that directory called calendar_tracker_data_file.csv
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return File('$path/calendar_tracker_data_file.txt');
+  }
 
+  late List<String> currentData = [];
 
-/// Returns a number calculated from a DateTime.
-int getHashCode(DateTime key) {
-  return key.day * 1000000 + key.month * 10000 + key.year;
+  /// data file -> currentData
+  Future<void> readFileData() async {
+    print("Reading a file.");
+    final file = await _localFile;
+    currentData = await file.readAsLines();
+  }
+
+  /// new event -> data file
+  void addEvent(TrackerEvent event) async {
+    print("Adding an event: " + event.getDate().toString() + "=" + event.getStatus().toString());
+    final file = await _localFile;
+    file.writeAsString(event.getDate().toString() + "=" + event.getStatus().toString());
+  }
+
+  /// updates data file
+  void updateEvent(TrackerEvent eventToUpdate, int newStatus) async {
+    print("Updating an event: " + eventToUpdate.getDate().toString() + "=" + eventToUpdate.getStatus().toString() + "->" + newStatus.toString());
+    final file = await _localFile;
+    List<String> lines = await file.readAsLines();
+    List<String> updatedLines = [];
+    for (String line in lines) {
+      if (line.startsWith(eventToUpdate.getDate().toString())) {
+        updatedLines.add(eventToUpdate.getDate().toString() + "=" + newStatus.toString());
+      } else {
+        updatedLines.add(line);
+      }
+    }
+    await file.writeAsString(updatedLines.join("\n"));
+  }
+
+  /// deletes an event from the data file.
+  void deleteEvent(TrackerEvent eventToDelete) async {
+    print("Deleting an event: " + eventToDelete.getDate().toString() + "=" + eventToDelete.getStatus().toString());
+    final file = await _localFile;
+    List<String> lines = await file.readAsLines();
+    List<String> updatedLines = [];
+    for (String line in lines) {
+      if (!line.startsWith(eventToDelete.getDate().toString())) {
+        updatedLines.add(line);
+      }
+    }
+    await file.writeAsString(updatedLines.join("\n"));
+  }
+
+  /// Returns an event on the specified day parameter.
+  Future<TrackerEvent?> getEvent(DateTime date) async {
+    final file = await _localFile;
+    List<String> lines = await file.readAsLines();
+    for (String line in lines) {
+      List<String> parts = line.split("=");
+      if (parts.length == 2) {
+        DateTime eventDate = DateTime.parse(parts[0]);
+        if (eventDate.year == date.year && eventDate.month == date.month && eventDate.day == date.day) {
+          print("Fetching an event: " + date.toString() + " ===>>> " + eventDate.toString() + "=" + parts[1]);
+          return TrackerEvent(int.parse(parts[1]), eventDate);
+        }
+      }
+    }
+    return null;
+  }
 }
 
 
@@ -100,9 +158,9 @@ List<DateTime> daysInRange(DateTime first, DateTime last) {
   );
 }
 
-// Converts a number day or month into it's respective string.
-// 0 = day of week.
-// 1 = month.
+/// Converts a number day or month into it's respective string.
+/// 0 = day of week.
+/// 1 = month.
 String getNameFromDateInt(int type, int intInput) {
   if (type == 0) {
     switch(intInput) {
@@ -176,9 +234,22 @@ String getNameFromDateInt(int type, int intInput) {
   }
 }
 
-
-
-
+// // Returns a list of events within the range parameters specified.
+// List<TrackerEvent> getEventsForRange(DateTime start, DateTime end) {
+//   final days = daysInRange(start, end);
+//
+//   return [
+//     for (final d in days) ...getEventsForDay(d),
+//   ];
+// }
+//
+// int _countSobriety() {
+//   int out = 0;
+//   bool eventExists? = true;
+//
+//
+//   return out;
+// }
 // // Returns a list containing the event on the specified day parameter.
 // List<TrackerEvent> _getEventsForDay(DateTime day) {
 //   var events = tracker_events_list[day];
@@ -200,4 +271,32 @@ String getNameFromDateInt(int type, int intInput) {
 //     for (final d in days) ..._getEventsForDay(d),
 //   ];
 // }
-
+//
+// /// A LinkedHashMap of events where each DateTime is mapped to an Event.
+// /// The map uses 'isSameDay' to compare any new DateTime entries to those already in the map.
+// /// the 'isSameDay' function ignores time, making all the DateTime keys totally date based.
+// final tracker_events_list = LinkedHashMap<DateTime, TrackerEvent>(
+//   equals: isSameDay,
+//   hashCode: getHashCode,
+// )..addAll(sample_events_map);
+//
+// final dates = <DateTime>[
+//   DateTime.utc(tracker_today.year, tracker_today.month, tracker_today.day),
+//   DateTime.utc(tracker_today.year, tracker_today.month, tracker_today.day-1),
+//   DateTime.utc(tracker_today.year, tracker_today.month, tracker_today.day-2),
+//   DateTime.utc(tracker_today.year, tracker_today.month, tracker_today.day-3),
+// ];
+//
+// final sample_events_map = Map<DateTime, TrackerEvent>.fromIterable(
+//   dates,
+//   key: (item) => item,
+//   value: (item) => TrackerEvent(STATUS_FAILURE)
+// );
+//
+//
+// /// Returns a number calculated from a DateTime.
+// int getHashCode(DateTime key) {
+//   return key.day * 1000000 + key.month * 10000 + key.year;
+// }
+//
+//

@@ -27,7 +27,7 @@ class _TrackerPageState extends State<TrackerPage> {
     super.initState();
 
     _selectedDay = _focusedDay;
-    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
+    _selectedEvents = ValueNotifier(getEventsForDay(_selectedDay!));
   }
 
   @override
@@ -36,49 +36,49 @@ class _TrackerPageState extends State<TrackerPage> {
     super.dispose();
   }
 
-  // Returns a list containing the event on the specified day parameter.
-  List<TrackerEvent> _getEventsForDay(DateTime day) {
-    var events = tracker_events_list[day];
-
-    if (events == null) {
-      return [];
-    } else {
-      return [events];
-    }
-
-    // return kEvents[day] ?? [];
-  }
-
-  // Returns a list of events within the range parameters specified.
-  List<TrackerEvent> _getEventsForRange(DateTime start, DateTime end) {
-    final days = daysInRange(start, end);
-
-    return [
-      for (final d in days) ..._getEventsForDay(d),
-    ];
-  }
-
-  // This function adds an event to the specified day. It takes in an event status
-  // and a day. Their can only be one event per day so the status determines the
-  // event type (success, failure, neutral).
-  void _addEventToDay(int status, DateTime day) {
-    TrackerEvent event = TrackerEvent(status);
-    Map<DateTime, TrackerEvent> eventMap = {day: event};
-    tracker_events_list.addAll(eventMap);
-  }
-
-
-  void _deleteEventOnDay(DateTime day) {
-    tracker_events_list.remove(day);
-  }
-
-  // int _countSobriety() {
-  //   int out = 0;
-  //   bool eventExists? = true;
-  //
-  //
-  //   return out;
-  // }
+//   // Returns a list containing the event on the specified day parameter.
+//   List<TrackerEvent> _getEventsForDay(DateTime day) {
+//     var events = tracker_events_list[day];
+//
+//     if (events == null) {
+//       return [];
+//     } else {
+//       return [events];
+//     }
+//
+//     // return kEvents[day] ?? [];
+//   }
+//
+//   // Returns a list of events within the range parameters specified.
+//   List<TrackerEvent> _getEventsForRange(DateTime start, DateTime end) {
+//     final days = daysInRange(start, end);
+//
+//     return [
+//       for (final d in days) ..._getEventsForDay(d),
+//     ];
+//   }
+//
+//   // This function adds an event to the specified day. It takes in an event status
+//   // and a day. Their can only be one event per day so the status determines the
+//   // event type (success, failure, neutral).
+//   void _addEventToDay(int status, DateTime day) {
+//     TrackerEvent event = TrackerEvent(status);
+//     Map<DateTime, TrackerEvent> eventMap = {day: event};
+//     tracker_events_list.addAll(eventMap);
+//   }
+//
+//
+//   void _deleteEventOnDay(DateTime day) {
+//     tracker_events_list.remove(day);
+//   }
+//
+//   // int _countSobriety() {
+//   //   int out = 0;
+//   //   bool eventExists? = true;
+//   //
+//   //
+//   //   return out;
+//   // }
 
   // When you select a day a popup card will appear asking to select that day's
   // status. You can select Success, neutral, or failure. The app will then create
@@ -137,7 +137,7 @@ class _TrackerPageState extends State<TrackerPage> {
                       TextButton(
                         style: ButtonStyle(),
                         onPressed: () {
-                          _addEventToDay(STATUS_SUCCESS, selectedDay);
+                          addEventToDay(STATUS_SUCCESS, selectedDay);
                           Navigator.pop(context);
                           _updateSelectedEvents(selectedDay);
                         },
@@ -146,7 +146,7 @@ class _TrackerPageState extends State<TrackerPage> {
                       ),
                       TextButton(
                         onPressed: () {
-                          _deleteEventOnDay(selectedDay);
+                          deleteEventOnDay(selectedDay);
                           Navigator.pop(context);
                           _updateSelectedEvents(selectedDay);
                         },
@@ -155,7 +155,7 @@ class _TrackerPageState extends State<TrackerPage> {
                       ),
                       TextButton(
                         onPressed: () {
-                          _addEventToDay(STATUS_FAILURE, selectedDay);
+                          addEventToDay(STATUS_FAILURE, selectedDay);
                           Navigator.pop(context);
                           _updateSelectedEvents(selectedDay);
                         },
@@ -191,7 +191,7 @@ class _TrackerPageState extends State<TrackerPage> {
       _rangeStart = null;
       _rangeEnd = null;
       _rangeSelectionMode = RangeSelectionMode.toggledOff;
-      _selectedEvents.value = _getEventsForDay(selectedDay);
+      _selectedEvents.value = getEventsForDay(selectedDay);
     });
   }
 
@@ -207,11 +207,11 @@ class _TrackerPageState extends State<TrackerPage> {
 
     // `start` or `end` could be null
     if (start != null && end != null) {
-      _selectedEvents.value = _getEventsForRange(start, end);
+      _selectedEvents.value = getEventsForRange(start, end);
     } else if (start != null) {
-      _selectedEvents.value = _getEventsForDay(start);
+      _selectedEvents.value = getEventsForDay(start);
     } else if (end != null) {
-      _selectedEvents.value = _getEventsForDay(end);
+      _selectedEvents.value = getEventsForDay(end);
     }
   }
 
@@ -324,7 +324,7 @@ class _TrackerPageState extends State<TrackerPage> {
                 rangeEndDay: _rangeEnd,
                 calendarFormat: _calendarFormat,
                 rangeSelectionMode: _rangeSelectionMode,
-                eventLoader: _getEventsForDay,
+                eventLoader: getEventsForDay,
                 startingDayOfWeek: StartingDayOfWeek.sunday,
 
                 daysOfWeekStyle: DaysOfWeekStyle(
