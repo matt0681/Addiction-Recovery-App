@@ -94,10 +94,10 @@ class TrackerStorage {
   }
 
   /// new event -> data file
-  void addEvent(TrackerEvent event) async {
-    print("Adding an event: " + event.getDate().toString() + "=" + event.getStatus().toString());
+  void addEvent(int status, DateTime date) async {
+    print("Adding an event: " + date.toString() + "=" + status.toString());
     final file = await _localFile;
-    file.writeAsString(event.getDate().toString() + "=" + event.getStatus().toString());
+    file.writeAsString(date.toString() + "=" + status.toString());
   }
 
   /// updates data file
@@ -117,13 +117,13 @@ class TrackerStorage {
   }
 
   /// deletes an event from the data file.
-  void deleteEvent(TrackerEvent eventToDelete) async {
-    print("Deleting an event: " + eventToDelete.getDate().toString() + "=" + eventToDelete.getStatus().toString());
+  void deleteEvent(DateTime date) async {
+    print("Deleting an event: " + date.toString());
     final file = await _localFile;
     List<String> lines = await file.readAsLines();
     List<String> updatedLines = [];
     for (String line in lines) {
-      if (!line.startsWith(eventToDelete.getDate().toString())) {
+      if (!line.startsWith(date.toString())) {
         updatedLines.add(line);
       }
     }
@@ -131,7 +131,7 @@ class TrackerStorage {
   }
 
   /// Returns an event on the specified day parameter.
-  Future<TrackerEvent?> getEvent(DateTime date) async {
+  Future<TrackerEvent> getEvent(DateTime date) async {
     final file = await _localFile;
     List<String> lines = await file.readAsLines();
     for (String line in lines) {
@@ -144,7 +144,7 @@ class TrackerStorage {
         }
       }
     }
-    return null;
+    return TrackerEvent(STATUS_NEUTRAL, date);
   }
 }
 

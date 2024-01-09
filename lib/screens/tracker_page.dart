@@ -6,6 +6,7 @@ import 'package:noe_more/screen_utils/tracker_utils.dart';
 /// The Tracker page consists of important sobriety tracking information
 /// such as a calendar, sobriety counter, and quotes.
 class TrackerPage extends StatefulWidget {
+
   @override
   _TrackerPageState createState() => _TrackerPageState();
 }
@@ -17,68 +18,25 @@ class _TrackerPageState extends State<TrackerPage> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
-  late final ValueNotifier<List<TrackerEvent>> _selectedEvents;
+  late final ValueNotifier<TrackerEvent> _selectedEvent;
   RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.toggledOff;
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
+  final TrackerStorage calendarStorage = TrackerStorage();
 
   @override
   void initState() {
     super.initState();
 
     _selectedDay = _focusedDay;
-    _selectedEvents = ValueNotifier(getEventsForDay(_selectedDay!));
+    _selectedEvent = ValueNotifier(calendarStorage.getEvent(_selectedDay!) as TrackerEvent);
   }
 
   @override
   void dispose() {
-    _selectedEvents.dispose();
+    _selectedEvent.dispose();
     super.dispose();
   }
-
-//   // Returns a list containing the event on the specified day parameter.
-//   List<TrackerEvent> _getEventsForDay(DateTime day) {
-//     var events = tracker_events_list[day];
-//
-//     if (events == null) {
-//       return [];
-//     } else {
-//       return [events];
-//     }
-//
-//     // return kEvents[day] ?? [];
-//   }
-//
-//   // Returns a list of events within the range parameters specified.
-//   List<TrackerEvent> _getEventsForRange(DateTime start, DateTime end) {
-//     final days = daysInRange(start, end);
-//
-//     return [
-//       for (final d in days) ..._getEventsForDay(d),
-//     ];
-//   }
-//
-//   // This function adds an event to the specified day. It takes in an event status
-//   // and a day. Their can only be one event per day so the status determines the
-//   // event type (success, failure, neutral).
-//   void _addEventToDay(int status, DateTime day) {
-//     TrackerEvent event = TrackerEvent(status);
-//     Map<DateTime, TrackerEvent> eventMap = {day: event};
-//     tracker_events_list.addAll(eventMap);
-//   }
-//
-//
-//   void _deleteEventOnDay(DateTime day) {
-//     tracker_events_list.remove(day);
-//   }
-//
-//   // int _countSobriety() {
-//   //   int out = 0;
-//   //   bool eventExists? = true;
-//   //
-//   //
-//   //   return out;
-//   // }
 
   // When you select a day a popup card will appear asking to select that day's
   // status. You can select Success, neutral, or failure. The app will then create
@@ -137,27 +95,27 @@ class _TrackerPageState extends State<TrackerPage> {
                       TextButton(
                         style: ButtonStyle(),
                         onPressed: () {
-                          addEventToDay(STATUS_SUCCESS, selectedDay);
+                          calendarStorage.addEvent(STATUS_SUCCESS, selectedDay);
                           Navigator.pop(context);
-                          _updateSelectedEvents(selectedDay);
+                          _updateSelectedEvent(selectedDay);
                         },
                         child: Text('Success', style: TextStyle(color: Color(
                             0xFF00ff00))),
                       ),
                       TextButton(
                         onPressed: () {
-                          deleteEventOnDay(selectedDay);
+                          calendarStorage.deleteEvent(selectedDay);
                           Navigator.pop(context);
-                          _updateSelectedEvents(selectedDay);
+                          _updateSelectedEvent(selectedDay);
                         },
                         child: Text('Neutral', style: TextStyle(color: Colors
                             .grey)),
                       ),
                       TextButton(
                         onPressed: () {
-                          addEventToDay(STATUS_FAILURE, selectedDay);
+                          calendarStorage.addEvent(STATUS_FAILURE, selectedDay);
                           Navigator.pop(context);
-                          _updateSelectedEvents(selectedDay);
+                          _updateSelectedEvent(selectedDay);
                         },
                         child: Text('Failure', style: TextStyle(color: Color(
                             0xFFff3300))),
@@ -181,39 +139,39 @@ class _TrackerPageState extends State<TrackerPage> {
     }
 
     // _selectedEvents.value = _getEventsForDay(selectedDay);
-    _updateSelectedEvents(selectedDay);
+    _updateSelectedEvent(selectedDay);
   }
 
-  void _updateSelectedEvents(DateTime selectedDay) {
+  void _updateSelectedEvent(DateTime selectedDay) {
     setState(() {
       _selectedDay = selectedDay;
       _focusedDay = selectedDay;
       _rangeStart = null;
       _rangeEnd = null;
       _rangeSelectionMode = RangeSelectionMode.toggledOff;
-      _selectedEvents.value = getEventsForDay(selectedDay);
+      _selectedEvent.value = calendarStorage.getEvent(selectedDay) as TrackerEvent;
     });
   }
 
-  // Handles a selected range logic.
-  void _onRangeSelected(DateTime? start, DateTime? end, DateTime focusedDay) {
-    setState(() {
-      _selectedDay = null;
-      _focusedDay = focusedDay;
-      _rangeStart = start;
-      _rangeEnd = end;
-      _rangeSelectionMode = RangeSelectionMode.toggledOn;
-    });
-
-    // `start` or `end` could be null
-    if (start != null && end != null) {
-      _selectedEvents.value = getEventsForRange(start, end);
-    } else if (start != null) {
-      _selectedEvents.value = getEventsForDay(start);
-    } else if (end != null) {
-      _selectedEvents.value = getEventsForDay(end);
-    }
-  }
+  // // Handles a selected range logic.
+  // void _onRangeSelected(DateTime? start, DateTime? end, DateTime focusedDay) {
+  //   setState(() {
+  //     _selectedDay = null;
+  //     _focusedDay = focusedDay;
+  //     _rangeStart = start;
+  //     _rangeEnd = end;
+  //     _rangeSelectionMode = RangeSelectionMode.toggledOn;
+  //   });
+  //
+  //   // `start` or `end` could be null
+  //   if (start != null && end != null) {
+  //     _selectedEvents.value = getEventsForRange(start, end);
+  //   } else if (start != null) {
+  //     _selectedEvents.value = getEventsForDay(start);
+  //   } else if (end != null) {
+  //     _selectedEvents.value = getEventsForDay(end);
+  //   }
+  // }
 
   // The set style for displayed quotes.
   TextStyle quoteStyle = TextStyle(color: Color(0xFF7D91BA), fontSize: 16); // 0xFF7D91BA, 0xFF899BC0
@@ -324,7 +282,7 @@ class _TrackerPageState extends State<TrackerPage> {
                 rangeEndDay: _rangeEnd,
                 calendarFormat: _calendarFormat,
                 rangeSelectionMode: _rangeSelectionMode,
-                eventLoader: getEventsForDay,
+                // eventLoader: getEventsForDay,
                 startingDayOfWeek: StartingDayOfWeek.sunday,
 
                 daysOfWeekStyle: DaysOfWeekStyle(
@@ -405,7 +363,7 @@ class _TrackerPageState extends State<TrackerPage> {
                   ),
                 ),
 
-                onRangeSelected: _onRangeSelected,
+                //onRangeSelected: _onRangeSelected,
                 onFormatChanged: (format) {
                   if (_calendarFormat != format) {
                     setState(() {
