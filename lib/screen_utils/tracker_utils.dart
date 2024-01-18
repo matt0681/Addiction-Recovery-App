@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -93,59 +94,72 @@ class TrackerStorage {
     currentData = await file.readAsLines();
   }
 
-  /// new event -> data file
-  void addEvent(int status, DateTime date) async {
-    print("Adding an event: " + date.toString() + "=" + status.toString());
+  /// currentData -> data file
+  Future<void> updateFileData(List<String> dataArray) async {
     final file = await _localFile;
-    file.writeAsString(date.toString() + "=" + status.toString());
-  }
-
-  /// updates data file
-  void updateEvent(TrackerEvent eventToUpdate, int newStatus) async {
-    print("Updating an event: " + eventToUpdate.getDate().toString() + "=" + eventToUpdate.getStatus().toString() + "->" + newStatus.toString());
-    final file = await _localFile;
-    List<String> lines = await file.readAsLines();
-    List<String> updatedLines = [];
-    for (String line in lines) {
-      if (line.startsWith(eventToUpdate.getDate().toString())) {
-        updatedLines.add(eventToUpdate.getDate().toString() + "=" + newStatus.toString());
-      } else {
-        updatedLines.add(line);
-      }
+    final sink = file.openWrite();
+    for (final line in currentData) {
+      sink.write(line);
     }
-    await file.writeAsString(updatedLines.join("\n"));
+    await sink.flush();
+    await sink.close();
   }
 
-  /// deletes an event from the data file.
+  /// new event -> currentData
+  void addEvent(int status, DateTime date) {
+    print("Adding an event: " + date.toString() + "=" + status.toString());
+    currentData.add(date.toString() + "=" + status.toString());
+
+    updateFileData(currentData);
+  }
+
+  /// deletes an event from currentData.
   void deleteEvent(DateTime date) async {
     print("Deleting an event: " + date.toString());
-    final file = await _localFile;
-    List<String> lines = await file.readAsLines();
-    List<String> updatedLines = [];
-    for (String line in lines) {
-      if (!line.startsWith(date.toString())) {
-        updatedLines.add(line);
+    for (String entry in currentData) {
+      if (entry.startsWith(date.toString())) {
+        currentData.remove(entry);
+        return;
       }
     }
-    await file.writeAsString(updatedLines.join("\n"));
+
+    updateFileData(currentData);
   }
 
-  /// Returns an event on the specified day parameter.
-  Future<TrackerEvent> getEvent(DateTime date) async {
-    final file = await _localFile;
-    List<String> lines = await file.readAsLines();
-    for (String line in lines) {
-      List<String> parts = line.split("=");
-      if (parts.length == 2) {
-        DateTime eventDate = DateTime.parse(parts[0]);
-        if (eventDate.year == date.year && eventDate.month == date.month && eventDate.day == date.day) {
-          print("Fetching an event: " + date.toString() + " ===>>> " + eventDate.toString() + "=" + parts[1]);
-          return TrackerEvent(int.parse(parts[1]), eventDate);
-        }
+  /// Returns an event from currentData on the specified date parameter.
+  TrackerEvent getEvent(DateTime date) {
+    print("Fetching an event: " + date.toString());
+    for (String entry in currentData) {
+      List<String> parts = entry.split("=");
+      DateTime eventDate = DateTime.parse(parts[0]);
+      if (eventDate.year == date.year && eventDate.month == date.month && eventDate.day == date.day) {
+        print("FOUND IT!");
+        return TrackerEvent(int.parse(parts[1]), eventDate);
       }
     }
+    print("Did not find it...");
     return TrackerEvent(STATUS_NEUTRAL, date);
   }
+
+
+
+
+  // /// updates data file
+  // void updateEvent(TrackerEvent eventToUpdate, int newStatus) async {
+  //   print("Updating an event: " + eventToUpdate.getDate().toString() + "=" + eventToUpdate.getStatus().toString() + "->" + newStatus.toString());
+  //   final file = await _localFile;
+  //   List<String> lines = await file.readAsLines();
+  //   List<String> updatedLines = [];
+  //   for (String line in lines) {
+  //     if (line.startsWith(eventToUpdate.getDate().toString())) {
+  //       updatedLines.add(eventToUpdate.getDate().toString() + "=" + newStatus.toString());
+  //     } else {
+  //       updatedLines.add(line);
+  //     }
+  //   }
+  //   await file.writeAsString(updatedLines.join("\n"));
+  // }
+  //
 }
 
 

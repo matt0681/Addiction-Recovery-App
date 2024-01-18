@@ -29,7 +29,7 @@ class _TrackerPageState extends State<TrackerPage> {
     super.initState();
 
     _selectedDay = _focusedDay;
-    _selectedEvent = ValueNotifier(calendarStorage.getEvent(_selectedDay!) as TrackerEvent);
+    _selectedEvent = ValueNotifier(calendarStorage.getEvent(_selectedDay!));
   }
 
   @override
@@ -149,8 +149,14 @@ class _TrackerPageState extends State<TrackerPage> {
       _rangeStart = null;
       _rangeEnd = null;
       _rangeSelectionMode = RangeSelectionMode.toggledOff;
-      _selectedEvent.value = calendarStorage.getEvent(selectedDay) as TrackerEvent;
+      _selectedEvent.value = calendarStorage.getEvent(selectedDay);
     });
+  }
+
+  List<TrackerEvent> _getEventsForDay(DateTime date) {
+    List<TrackerEvent> out = [];
+    out.add(calendarStorage.getEvent(date));
+    return out;
   }
 
   // // Handles a selected range logic.
@@ -282,7 +288,7 @@ class _TrackerPageState extends State<TrackerPage> {
                 rangeEndDay: _rangeEnd,
                 calendarFormat: _calendarFormat,
                 rangeSelectionMode: _rangeSelectionMode,
-                // eventLoader: getEventsForDay,
+                eventLoader: _getEventsForDay,
                 startingDayOfWeek: StartingDayOfWeek.sunday,
 
                 daysOfWeekStyle: DaysOfWeekStyle(
