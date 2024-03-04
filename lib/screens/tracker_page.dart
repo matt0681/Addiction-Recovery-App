@@ -46,18 +46,45 @@ class _TrackerPageState extends State<TrackerPage> {
       // If the selected day is in the future, show an error dialog
       showDialog(
         context: context,
-        builder: (context) => AlertDialog(
-          title: Text('Error'),
-          content: Text('Events can only be added for today or in the past.'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text('OK'),
+        builder: (context) =>
+            Dialog(
+              insetPadding: EdgeInsets.all(70.0),
+              backgroundColor: Color(0xFF2A5298),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15.0))),
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 10.0),
+                child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+
+                      Text("Error",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+
+                      SizedBox(height: 4.0),
+
+                      Text("Statuses cannot be added to the future.",
+                        style: TextStyle(color: Colors.white, fontSize: 14),
+                      ),
+
+                      SizedBox(height: 6.0),
+
+                      TextButton(
+                        style: ButtonStyle(),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text('OK',
+                          style: TextStyle(color: Colors.white, fontSize: 14),
+                        ),
+                      ),
+
+                    ],
+                ),
+              ),
             ),
-          ],
-        ),
       );
       return; // Exit the function without adding the event
     }
