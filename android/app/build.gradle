@@ -69,6 +69,7 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
             // was .debug, now .release
             signingConfig signingConfigs.release
+            ndk.debugSymbolLevel = "FULL"
         }
     }
 }
